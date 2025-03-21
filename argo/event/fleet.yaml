@@ -4,7 +4,7 @@ labels:
   argo: events
 
 helm:
-  release: argo-events
+  releaseName: argo-events
   repo: https://argoproj.github.io/argo-helm
   chart: argo-events
   values:
