@@ -23,16 +23,4 @@ spec:
             - src:
                 dependencyName: user-created-event
                 dataKey: data.metadata.name
-              dest: inputs.0.value
-              operation: prepend
-              value: '"'
-            - src:
-                dependencyName: user-created-event
-                dataKey: data.metadata.name
-              dest: inputs.0.value
-              operation: append
-              value: '"'
-            - src:
-                dependencyName: user-created-event
-                dataKey: data.metadata.name
               dest: userName
