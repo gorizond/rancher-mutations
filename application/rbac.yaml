@@ -12,7 +12,7 @@ rules:
 - apiGroups: ["management.cattle.io"]
   resources: ["users"]
   verbs: ["watch", "list", "get"]
-- apiGroups: ["management.cattle.io/v3"]
+- apiGroups: ["management.cattle.io"]
   resources: ["fleetworkspaces", "globalroles"]
   verbs: ["create"]
   

@@ -8,19 +8,20 @@ spec:
     - name: user-created-event
       eventSourceName: gorizond-user-events
       eventName: user-watcher
+  template:
+    serviceAccountName: gorizond-events-sa
   triggers:
     - template:
-        name: create-fleet-workspace
         k8s:
           operation: create
+          parameters:
+            - dest: userName
+              src:
+                dependencyName: user-created-event
           source:
             resource:
               apiVersion: management.cattle.io/v3
               kind: FleetWorkspace
               metadata:
-                name: "{{ .Inputs.userName }}-workspace"
-          parameters:
-            - src:
-                dependencyName: user-created-event
-                dataKey: object.metadata.name
-              dest: userName
+                name: '{{ .Inputs.userName }}-workspace'
+        name: create-fleet-workspace
