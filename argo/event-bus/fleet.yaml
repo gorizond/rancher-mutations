@@ -1,18 +1,10 @@
-apiVersion: argoproj.io/v1alpha1
-kind: EventBus
-metadata:
-  name: default
-  namespace: argo-events
-spec:
-  nats:
-    native:
-      replicas: 3
-      auth: token
-      containerTemplate:
-        resources:
-          requests:
-            cpu: "10m"
-      metricsContainerTemplate:
-        resources:
-          requests:
-            cpu: "10m"
+defaultNamespace: argo-events
+
+labels:
+  argo: bus
+
+
+dependsOn:
+  - selector:
+      matchLabels:
+        argo: events

@@ -4,3 +4,6 @@ dependsOn:
   - selector:
       matchLabels:
         argo: events
+  - selector:
+      matchLabels:
+        argo: bus
