@@ -1,0 +1,17 @@
+defaultNamespace: argo-events
+
+labels:
+  argo: events
+
+helm:
+  repo: https://argoproj.github.io/argo-helm
+  chart: argo-events
+  values:
+    controller:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 128Mi
