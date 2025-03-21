@@ -22,5 +22,5 @@ spec:
           parameters:
             - src:
                 dependencyName: user-created-event
-                dataKey: data.metadata.name
+                dataKey: object.metadata.name
               dest: userName
