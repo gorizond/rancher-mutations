@@ -3,4 +3,4 @@ defaultNamespace: argo-events
 dependsOn:
   - selector:
       matchLabels:
-        aldaas: events
+        argo: events
