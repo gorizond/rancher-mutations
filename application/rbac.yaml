@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gorizond-events-sa
+  namespace: argo-events
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gorizond-events-cr
+rules:
+- apiGroups: ["management.cattle.io"]
+  resources: ["users"]
+  verbs: ["watch", "list", "get"]
+- apiGroups: ["management.cattle.io/v3"]
+  resources: ["fleetworkspaces", "globalroles"]
+  verbs: ["create"]
+  
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: gorizond-events-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: gorizond-events-cr
+subjects:
+- kind: ServiceAccount
+  name: gorizond-events-sa
+  namespace: argo-events

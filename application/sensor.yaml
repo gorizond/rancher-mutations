@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: gorizond-user-created-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: user-created-event
+      eventSourceName: gorizond-user-events
+      eventName: user-watcher
+  triggers:
+    - template:
+        name: create-fleet-workspace
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: management.cattle.io/v3
+              kind: FleetWorkspace
+              metadata:
+                name: "{{ .Inputs.userName }}-workspace"
+          parameters:
+            - src:
+                dependencyName: user-created-event
+                dataKey: data.metadata.name
+              dest: inputs.0.value
+              operation: prepend
+              value: '"'
+            - src:
+                dependencyName: user-created-event
+                dataKey: data.metadata.name
+              dest: inputs.0.value
+              operation: append
+              value: '"'
+            - src:
+                dependencyName: user-created-event
+                dataKey: data.metadata.name
+              dest: userName
