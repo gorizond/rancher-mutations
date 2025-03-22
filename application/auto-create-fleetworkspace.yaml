@@ -71,3 +71,11 @@ spec:
                 kind: GlobalRole
                 name: "fleet-workspace-{{request.object.username}}"
           userName: "{{request.object.metadata.name}}"
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: "cattle-globalrole-fleet-workspace-{{request.object.username}}"
+          subjects:
+            - apiGroup: rbac.authorization.k8s.io
+              kind: User
+              name: "{{request.object.metadata.name}}"
