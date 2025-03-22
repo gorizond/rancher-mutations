@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: auto-create-user-resources
+  name: auto-create-user-fleetworkspace
 spec:
   admission: true
   background: true
@@ -22,33 +22,3 @@ spec:
             name: "{{request.object.username}}-workspace"
           spec:
             displayName: "Workspace for {{request.object.username}}"
-    - name: generate-globalrole
-      match:
-        any:
-        - resources:
-            kinds:
-              - management.cattle.io/v3/User
-      generate:
-        kind: GlobalRole
-        apiVersion: management.cattle.io/v3
-        name: "fleet-workspace-{{request.object.username}}"
-        synchronize: true
-        data:
-          metadata:
-            name: "fleet-workspace-{{request.object.username}}"
-          rules:
-            - apiGroups: ["management.cattle.io"]
-              resourceNames: ["{{request.object.username}}-workspace"]
-              resources: ["fleetworkspaces"]
-              verbs: ["*"]
-          namespacedRules:
-            "{{request.object.username}}-workspace":
-              - apiGroups: ["fleet.cattle.io"]
-                resources:
-                  - gitrepos
-                  - bundles
-                  - clusterregistrationtokens
-                  - gitreporestrictions
-                  - clusters
-                  - clustergroups
-                verbs: ["*"]
