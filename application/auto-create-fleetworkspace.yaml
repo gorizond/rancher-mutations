@@ -4,7 +4,7 @@ metadata:
   name: auto-create-user-resources
 spec:
   admission: true
-  background: true
+  background: false
   rules:
     - name: generate-fleetworkspace
       match:
