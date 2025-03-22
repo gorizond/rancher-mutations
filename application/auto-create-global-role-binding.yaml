@@ -1,12 +1,12 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: auto-create-user-globalrole
+  name: auto-create-user-globalrole-bindig
 spec:
   admission: true
   background: true
   rules:
-    - name: generate-globalrole
+    - name: generate-globalrole-bindig
       match:
         any:
         - resources:
