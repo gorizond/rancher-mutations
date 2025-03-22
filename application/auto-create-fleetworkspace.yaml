@@ -96,5 +96,4 @@ spec:
           subjects:
             - apiGroup: rbac.authorization.k8s.io
               kind: User
-              name: "{{request.object.metadata.name}}""
-
+              name: "{{request.object.metadata.name}}"
