@@ -32,10 +32,11 @@ spec:
       generate:
         kind: GlobalRole
         apiVersion: management.cattle.io/v3
-        name: "fwgr-{{request.object.metadata.name}}"
+        name: "fwgr-{{request.object.username}}"
+        displayName: "GitOps for {{request.object.username}}"
         data:
           metadata:
-            name: "fwgr-{{request.object.metadata.name}}"
+            name: "fwgr-{{request.object.username}}"
             annotations:
               gorizond-user-create: "{{request.object.metadata.name}}"
           rules:
