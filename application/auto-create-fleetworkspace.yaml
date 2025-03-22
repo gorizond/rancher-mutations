@@ -52,3 +52,22 @@ spec:
                   - clusters
                   - clustergroups
                 verbs: ["*"]
+    - name: generate-globalrole-binding
+      match:
+        any:
+        - resources:
+            kinds:
+              - management.cattle.io/v3/User
+      generate:
+        kind: GlobalRoleBinding
+        apiVersion: management.cattle.io/v3
+        name: "grb-{{request.object.metadata.name}}"
+        synchronize: true
+        data:
+          metadata:
+            name: "grb-{{request.object.metadata.name}}"
+            ownerReferences:
+              - apiVersion: management.cattle.io/v3
+                kind: GlobalRole
+                name: "fleet-workspace-{{request.object.username}}"
+          userName: "{{request.object.metadata.name}}"
