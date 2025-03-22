@@ -17,6 +17,7 @@ helm:
             resources:
             - fleetworkspaces
             - globalroles
+            - globalrolebindings
             verbs:
             - create
             - get
@@ -31,6 +32,7 @@ helm:
             resources:
             - fleetworkspaces
             - globalroles
+            - globalrolebindings
             verbs:
             - '*'
       replicas: 3
@@ -43,6 +45,7 @@ helm:
             resources:
             - fleetworkspaces
             - globalroles
+            - globalrolebindings
             verbs:
             - get
             - create
