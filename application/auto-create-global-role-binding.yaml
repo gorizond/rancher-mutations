@@ -16,7 +16,6 @@ spec:
         kind: GlobalRoleBinding
         apiVersion: management.cattle.io/v3
         name: "gorizond-{{request.object.metadata.name}}-{{request.object.metadata.annotations.\"gorizond-user-create\"}}"
-        synchronize: true
         data:
           metadata:
             name: "gorizond-{{request.object.metadata.name}}-{{request.object.metadata.annotations.\"gorizond-user-create\"}}"

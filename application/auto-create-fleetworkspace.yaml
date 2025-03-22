@@ -16,7 +16,6 @@ spec:
         kind: FleetWorkspace
         apiVersion: management.cattle.io/v3
         name: "{{request.object.username}}-workspace"
-        synchronize: true
         data:
           metadata:
             name: "{{request.object.username}}-workspace"
