@@ -15,12 +15,12 @@ spec:
       generate:
         kind: GlobalRoleBinding
         apiVersion: management.cattle.io/v3
-        name: "gorizond-{{request.object.metadata.name}}-{{request.object.metadata.annotations['gorizond-user-create']}}"
+        name: "gorizond-{{request.object.metadata.name}}-{{request.object.metadata.annotations.\"gorizond-user-create\"}}"
         synchronize: true
         data:
           metadata:
-            name: "gorizond-{{request.object.metadata.name}}-{{request.object.metadata.annotations['gorizond-user-create']}}"
+            name: "gorizond-{{request.object.metadata.name}}-{{request.object.metadata.annotations.\"gorizond-user-create\"}}"
             annotations:
-              gorizond-user-create: "{{request.object.metadata.annotations['gorizond-user-create']}}"
+              gorizond-user-create: "{{request.object.metadata.annotations.\"gorizond-user-create\"}}"
           globalRoleName: "{{request.object.metadata.name}}"
-          userName: "{{request.object.metadata.annotations['gorizond-user-create']}}"
+          userName: "{{request.object.metadata.annotations.\"gorizond-user-create\"}}"
