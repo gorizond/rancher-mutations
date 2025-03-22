@@ -20,5 +20,7 @@ spec:
         data:
           metadata:
             name: "{{request.object.username}}-workspace"
+            annotations:
+              gorizond-user-create: "{{request.object.metadata.name}}"
           spec:
             displayName: "Workspace for {{request.object.username}}"

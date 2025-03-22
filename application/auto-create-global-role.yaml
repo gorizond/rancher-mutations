@@ -20,6 +20,8 @@ spec:
         data:
           metadata:
             name: "fwgr-{{request.object.metadata.name}}"
+            annotations:
+              gorizond-user-create: "{{request.object.metadata.annotations.gorizond-user-create}}"
           rules:
             - apiGroups: ["management.cattle.io"]
               resourceNames: ["{{request.object.metadata.name}}"]
