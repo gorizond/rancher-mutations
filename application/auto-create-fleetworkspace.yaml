@@ -61,16 +61,34 @@ spec:
       generate:
         kind: GlobalRoleBinding
         apiVersion: management.cattle.io/v3
-        name: "grb-{{request.object.metadata.name}}"
+        name: "gorizond-grb-{{request.object.metadata.name}}"
         synchronize: true
         data:
           metadata:
-            name: "grb-{{request.object.metadata.name}}"
+            name: "gorizond-grb-{{request.object.metadata.name}}"
             ownerReferences:
               - apiVersion: management.cattle.io/v3
                 kind: GlobalRole
                 name: "fleet-workspace-{{request.object.username}}"
           userName: "{{request.object.metadata.name}}"
+    - name: generate-clusterrole-binding
+      match:
+        any:
+        - resources:
+            kinds:
+              - management.cattle.io/v3/User
+      generate:
+        kind: ClusterRoleBinding
+        apiVersion: rbac.authorization.k8s.io/v1
+        name: "gorizond-grb-{{request.object.metadata.name}}"
+        synchronize: true
+        data:
+          metadata:
+            name: "gorizond-grb-{{request.object.metadata.name}}"
+            ownerReferences:
+              - apiVersion: management.cattle.io/v3
+                kind: GlobalRoleBinding
+                name: "gorizond-grb-{{request.object.metadata.name}}"
           roleRef:
             apiGroup: rbac.authorization.k8s.io
             kind: ClusterRole
@@ -78,4 +96,5 @@ spec:
           subjects:
             - apiGroup: rbac.authorization.k8s.io
               kind: User
-              name: "{{request.object.metadata.name}}"
+              name: {{request.object.metadata.name}}
+
