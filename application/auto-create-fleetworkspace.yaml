@@ -36,7 +36,6 @@ spec:
         data:
           metadata:
             name: "fleet-workspace-{{request.object.username}}"
-            annotai
           rules:
             - apiGroups: ["management.cattle.io"]
               resourceNames: ["{{request.object.username}}-workspace"]
