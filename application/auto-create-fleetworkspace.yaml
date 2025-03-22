@@ -12,11 +12,6 @@ spec:
         - resources:
             kinds:
               - management.cattle.io/v3/User
-      preconditions:
-        any:
-        - key: "{{request.operation}}"
-          operator: Equals
-          value: "CREATE"
       generate:
         kind: FleetWorkspace
         apiVersion: management.cattle.io/v3
