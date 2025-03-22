@@ -23,3 +23,34 @@ spec:
               gorizond-user-create: "{{request.object.metadata.name}}"
           spec:
             displayName: "Workspace for {{request.object.username}}"
+    - name: generate-globalrole
+      match:
+        any:
+        - resources:
+            kinds:
+              - management.cattle.io/v3/User
+      generate:
+        kind: GlobalRole
+        apiVersion: management.cattle.io/v3
+        name: "fwgr-{{request.object.metadata.name}}"
+        data:
+          metadata:
+            name: "fwgr-{{request.object.metadata.name}}"
+            annotations:
+              gorizond-user-create: "{{request.object.metadata.name}}"
+          rules:
+            - apiGroups: ["management.cattle.io"]
+              resourceNames: ["{{request.object.username}}-workspace"]
+              resources: ["fleetworkspaces"]
+              verbs: ["*"]
+          namespacedRules:
+            "{{request.object.username}}-workspace":
+              - apiGroups: ["fleet.cattle.io"]
+                resources:
+                  - gitrepos
+                  - bundles
+                  - clusterregistrationtokens
+                  - gitreporestrictions
+                  - clusters
+                  - clustergroups
+                verbs: ["*"]
