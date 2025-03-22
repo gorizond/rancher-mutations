@@ -1,9 +1,6 @@
-defaultNamespace: argo-events
+defaultNamespace: default
 
 dependsOn:
   - selector:
       matchLabels:
-        argo: events
-  - selector:
-      matchLabels:
-        argo: bus
+        kyverno: operator

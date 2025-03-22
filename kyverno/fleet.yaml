@@ -1,0 +1,55 @@
+defaultNamespace: kyverno
+
+labels:
+  kyverno: operator
+
+helm:
+  releaseName: kyverno
+  repo: https://kyverno.github.io/kyverno
+  chart: kyverno
+  values:
+    admissionController:
+      rbac:
+        clusterRole:
+          extraResources:
+          - apiGroups:
+            - management.cattle.io
+            resources:
+            - fleetworkspaces
+            verbs:
+            - create
+            - get
+            - list
+            - update
+            - delete
+            - patch
+            - watch
+          extraRules:
+          - apiGroups:
+            - management.cattle.io
+            resources:
+            - fleetworkspaces
+            verbs:
+            - '*'
+      replicas: 3
+    backgroundController:
+      rbac:
+        clusterRole:
+          extraResources:
+          - apiGroups:
+            - management.cattle.io
+            resources:
+            - fleetworkspaces
+            verbs:
+            - get
+            - create
+            - update
+            - delete
+            - patch
+            - list
+            - watch
+      replicas: 3
+    cleanupController:
+      replicas: 3
+    reportsController:
+      replicas: 3
