@@ -15,18 +15,18 @@ spec:
       generate:
         kind: GlobalRole
         apiVersion: management.cattle.io/v3
-        name: "fleet-workspace-{{request.object.username}}"
+        name: "fwgr-{{request.object.metadata.name}}"
         synchronize: true
         data:
           metadata:
-            name: "fleet-workspace-{{request.object.username}}"
+            name: "fwgr-{{request.object.metadata.name}}"
           rules:
             - apiGroups: ["management.cattle.io"]
-              resourceNames: ["{{request.object.username}}-workspace"]
+              resourceNames: ["{{request.object.metadata.name}}"]
               resources: ["fleetworkspaces"]
               verbs: ["*"]
           namespacedRules:
-            "{{request.object.username}}-workspace":
+            "{{request.object.metadata.name}}":
               - apiGroups: ["fleet.cattle.io"]
                 resources:
                   - gitrepos
