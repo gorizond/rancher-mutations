@@ -22,3 +22,37 @@ spec:
               kinds:
                 - management.cattle.io/v3/User
       name: generate-fleetworkspace
+    - generate:
+        apiVersion: management.cattle.io/v3
+        kind: GlobalRole
+        metadata:
+          name: 'fleet-{{request.object.username}}-workspace'
+        namespacedRules:
+          '{{request.object.username}}-workspace':
+            - apiGroups:
+                - fleet.cattle.io
+              resources:
+                - gitrepos
+                - bundles
+                - clusterregistrationtokens
+                - gitreporestrictions
+                - clusters
+                - clustergroups
+              verbs:
+                - '*'
+        rules:
+          - apiGroups:
+              - management.cattle.io
+            resourceNames:
+              - '{{request.object.username}}-workspace'
+            resources:
+              - fleetworkspaces
+            verbs:
+              - '*'
+        synchronize: true
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+      name: generate-globalrole

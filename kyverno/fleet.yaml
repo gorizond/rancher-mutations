@@ -16,6 +16,7 @@ helm:
             - management.cattle.io
             resources:
             - fleetworkspaces
+            - globalroles
             verbs:
             - create
             - get
@@ -29,6 +30,7 @@ helm:
             - management.cattle.io
             resources:
             - fleetworkspaces
+            - globalroles
             verbs:
             - '*'
       replicas: 3
@@ -40,6 +42,7 @@ helm:
             - management.cattle.io
             resources:
             - fleetworkspaces
+            - globalroles
             verbs:
             - get
             - create
