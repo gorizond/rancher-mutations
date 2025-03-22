@@ -36,7 +36,7 @@ helm:
             - globalrolebindings
             verbs:
             - '*'
-      replicas: 3
+      replicas: 1
     backgroundController:
       rbac:
         clusterRole:
@@ -56,8 +56,8 @@ helm:
             - patch
             - list
             - watch
-      replicas: 3
+      replicas: 1
     cleanupController:
-      replicas: 3
+      replicas: 1
     reportsController:
-      replicas: 3
+      replicas: 1
