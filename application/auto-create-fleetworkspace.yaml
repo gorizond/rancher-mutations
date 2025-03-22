@@ -28,28 +28,29 @@ spec:
         kind: GlobalRole
         metadata:
           name: 'fleet-workspace-{{request.object.username}}'
-        namespacedRules:
-          '{{request.object.username}}-workspace':
+        data:
+          namespacedRules:
+            '{{request.object.username}}-workspace':
+              - apiGroups:
+                  - fleet.cattle.io
+                resources:
+                  - gitrepos
+                  - bundles
+                  - clusterregistrationtokens
+                  - gitreporestrictions
+                  - clusters
+                  - clustergroups
+                verbs:
+                  - '*'
+          rules:
             - apiGroups:
-                - fleet.cattle.io
+                - management.cattle.io
+              resourceNames:
+                - '{{request.object.username}}-workspace'
               resources:
-                - gitrepos
-                - bundles
-                - clusterregistrationtokens
-                - gitreporestrictions
-                - clusters
-                - clustergroups
+                - fleetworkspaces
               verbs:
                 - '*'
-        rules:
-          - apiGroups:
-              - management.cattle.io
-            resourceNames:
-              - '{{request.object.username}}-workspace'
-            resources:
-              - fleetworkspaces
-            verbs:
-              - '*'
         synchronize: true
       match:
         any:
