@@ -12,80 +12,80 @@ helm:
       rbac:
         clusterRole:
           extraResources:
-          # - apiGroups:
-          #   - management.cattle.io
-          #   resources:
-          #   - users
-          #   - fleetworkspaces
-          #   - globalroles
-          #   - globalrolebindings
-          #   verbs:
-          #   - create
-          #   - get
-          #   - list
-          #   - update
-          #   - delete
-          #   - patch
-          #   - watch
           - apiGroups:
-              - '*'
+            - management.cattle.io
             resources:
-              - '*'
+            - users
+            - fleetworkspaces
+            - globalroles
+            - globalrolebindings
             verbs:
-              - '*'
-          - nonResourceURLs:
-              - '*'
-            verbs:
-              - '*'
+            - create
+            - get
+            - list
+            - update
+            - delete
+            - patch
+            - watch
+          # - apiGroups:
+          #     - '*'
+          #   resources:
+          #     - '*'
+          #   verbs:
+          #     - '*'
+          # - nonResourceURLs:
+          #     - '*'
+          #   verbs:
+          #     - '*'
           extraRules:
-          # - apiGroups:
-          #   - management.cattle.io
-          #   resources:
-          #   - fleetworkspaces
-          #   - globalroles
-          #   - globalrolebindings
-          #   verbs:
-          #   - '*'
           - apiGroups:
-              - '*'
+            - management.cattle.io
             resources:
-              - '*'
+            - fleetworkspaces
+            - globalroles
+            - globalrolebindings
             verbs:
-              - '*'
-          - nonResourceURLs:
-              - '*'
-            verbs:
-              - '*'
+            - '*'
+          # - apiGroups:
+          #     - '*'
+          #   resources:
+          #     - '*'
+          #   verbs:
+          #     - '*'
+          # - nonResourceURLs:
+          #     - '*'
+          #   verbs:
+          #     - '*'
       replicas: 1
     backgroundController:
       rbac:
         clusterRole:
           extraResources:
-          - apiGroups:
-              - '*'
-            resources:
-              - '*'
-            verbs:
-              - '*'
-          - nonResourceURLs:
-              - '*'
-            verbs:
-              - '*'
           # - apiGroups:
-          #   - management.cattle.io
+          #     - '*'
           #   resources:
-          #   - users
-          #   - fleetworkspaces
-          #   - globalroles
-          #   - globalrolebindings
+          #     - '*'
           #   verbs:
-          #   - get
-          #   - create
-          #   - update
-          #   - delete
-          #   - patch
-          #   - list
-          #   - watch
+          #     - '*'
+          # - nonResourceURLs:
+          #     - '*'
+          #   verbs:
+          #     - '*'
+          - apiGroups:
+            - management.cattle.io
+            resources:
+            - users
+            - fleetworkspaces
+            - globalroles
+            - globalrolebindings
+            verbs:
+            - get
+            - create
+            - update
+            - delete
+            - patch
+            - list
+            - watch
       replicas: 1
     cleanupController:
       replicas: 1
