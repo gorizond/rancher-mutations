@@ -3,6 +3,7 @@ kind: ClusterPolicy
 metadata:
   name: generate-fleetworkspace-on-user
 spec:
+  admission: true
   background: true
   rules:
   - name: generate-fleetworkspace
@@ -11,7 +12,7 @@ spec:
         kinds:
         - management.cattle.io/v3/User
     generate:
-      apiVersion: fleet.cattle.io/v1alpha1
+      apiVersion: management.cattle.io/v3
       kind: FleetWorkspace
       name: "{{request.object.username}}-workspace"
       synchronize: true
@@ -20,7 +21,6 @@ spec:
           annotations:
             gorizond-user/{{request.object.metadata.name}}: admin
         spec: {}
-
   - name: generate-admin-role
     match:
       resources:
@@ -48,7 +48,6 @@ spec:
                 - clusters
                 - clustergroups
               verbs: ["*"]
-
   - name: generate-editor-role
     match:
       resources:
@@ -76,7 +75,6 @@ spec:
                 - clusters
                 - clustergroups
               verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-
   - name: generate-view-role
     match:
       resources:
