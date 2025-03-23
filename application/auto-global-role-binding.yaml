@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-globalrolebindings-from-annotations
+spec:
+  admission: true
+  background: true
+  rules:
+    - generate:
+        foreach:
+          - apiVersion: management.cattle.io/v3
+            context:
+              - name: user
+                variable:
+                  jmesPath: element | split(@, '.') | @[1]
+              - name: role
+                variable:
+                  jmesPath: element | split(@, '.') | @[2]
+            data:
+              globalRoleName: gorizond-{{ role }}-{{ request.object.metadata.name }}
+              userName: '{{ user }}'
+            kind: GlobalRoleBinding
+            list: keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')]
+            name: gorizond-{{ role }}-{{ request.uid }}
+      match:
+        resources:
+          kinds:
+            - management.cattle.io/v3/FleetWorkspace
+      name: sync-gorizond-bindings
