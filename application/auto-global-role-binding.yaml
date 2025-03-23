@@ -21,7 +21,7 @@ spec:
               userName: '{{ user }}'
             kind: GlobalRoleBinding
             list: keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')]
-            name: gorizond-{{ role }}-{{ request.uid }}
+            name: gorizond-{{ role }}-{{ user }}-{{ request.object.metadata.name }}
       match:
         resources:
           kinds:
