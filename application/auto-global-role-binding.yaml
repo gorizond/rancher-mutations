@@ -38,7 +38,7 @@ spec:
       context:
         - name: globalBindings
           apiCall:
-            url: "/apis/management.cattle.io/v3/globalrolebindings"
+            urlPath: "/apis/management.cattle.io/v3/globalrolebindings"
             jmesPath: "items[?metadata.labels.fleet=='{{ request.object.metadata.name }}']"
       mutate:
         foreach:
