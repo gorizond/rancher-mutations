@@ -58,7 +58,7 @@ spec:
           - list: "globalBindings"
             preconditions:
               all:
-                - key: {{ element.metadata.annotations."gorizond" }}
+                - key: {{ element.metadata.annotations.gorizond }}
                   operator: AnyNotIn
                   value: {{ annotationsFW }}
             patchStrategicMerge:
