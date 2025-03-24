@@ -55,7 +55,7 @@ spec:
           - list: "globalBindings"
             preconditions:
               all:
-                - key: {{ keys(element.metadata.annotations) | [?starts_with(@, 'gorizond-user.')] }}
+                - key: {{ keys(element.metadata.annotations) }}
                   operator: AnyNotIn
                   value: {{ annotationsFW }}
             patchStrategicMerge:
