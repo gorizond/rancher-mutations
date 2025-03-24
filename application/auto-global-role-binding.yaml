@@ -51,6 +51,9 @@ spec:
         targets:
           - apiVersion: "management.cattle.io/v3"
             kind: GlobalRoleBinding
+            selector:
+              matchLabels:
+                fleet: '{{ request.object.metadata.name }}'
         foreach:
           - list: "globalBindings"
             preconditions:
