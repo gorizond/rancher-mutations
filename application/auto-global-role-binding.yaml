@@ -43,6 +43,10 @@ spec:
       mutate:
         foreach:
           - list: "globalBindings"
+            target:
+              apiVersion: "management.cattle.io/v3"
+              kind: GlobalRoleBinding
+              name: "{{ element.metadata.name }}"
             preconditions:
               all:
                 - key: "{{ keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')] | [?contains(@, element.userName)] | length(@) }}"
