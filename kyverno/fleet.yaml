@@ -96,7 +96,7 @@ helm:
             resources:
             - globalrolebindings
             verbs:
-            - delete
+            - '*'
       replicas: 1
     reportsController:
       replicas: 1
