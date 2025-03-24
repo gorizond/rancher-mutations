@@ -44,6 +44,9 @@ spec:
           apiCall:
             urlPath: "/apis/management.cattle.io/v3/globalrolebindings"
             jmesPath: "items[?metadata.labels.fleet=='{{ request.object.metadata.name }}']"
+        - name: annotationsFW
+          variable:
+            jmesPath: keys(request.object.metadata.annotations)
       mutate:
         targets:
           - apiVersion: "management.cattle.io/v3"
@@ -55,9 +58,9 @@ spec:
           - list: "globalBindings"
             preconditions:
               all:
-                - key: "{{ element.metadata.annotations.gorizond-grb }}"
+                - key: {{ element.metadata.annotations.gorizond-grb }}
                   operator: AnyNotIn
-                  value: {{ keys(request.object.metadata.annotations) }}
+                  value: {{ annotationsFW }}
             patchStrategicMerge:
               metadata:
                 labels:
