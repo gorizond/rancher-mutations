@@ -41,12 +41,14 @@ spec:
             urlPath: "/apis/management.cattle.io/v3/globalrolebindings"
             jmesPath: "items[?metadata.labels.fleet=='{{ request.object.metadata.name }}']"
       mutate:
+        targets:
+          - apiVersion: "management.cattle.io/v3"
+            kind: GlobalRoleBinding
+            selector:
+              matchLabels:
+                fleet: '{{ request.object.metadata.name }}'
         foreach:
           - list: "globalBindings"
-            target:
-              apiVersion: "management.cattle.io/v3"
-              kind: GlobalRoleBinding
-              name: "{{ element.metadata.name }}"
             preconditions:
               all:
                 - key: "{{ keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')] | [?contains(@, element.userName)] | length(@) }}"
