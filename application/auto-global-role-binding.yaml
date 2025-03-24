@@ -55,9 +55,9 @@ spec:
           - list: "globalBindings"
             preconditions:
               all:
-                - key: {{ keys(element.metadata.annotations) }}
+                - key: "{{ keys(element.metadata.annotations) }}"
                   operator: AnyNotIn
-                  value: {{ annotationsFW }}
+                  value: "{{ annotationsFW }}"
             patchStrategicMerge:
               metadata:
                 labels:
