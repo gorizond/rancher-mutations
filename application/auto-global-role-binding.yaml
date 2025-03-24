@@ -20,6 +20,8 @@ spec:
               metadata:
                 labels:
                   fleet: '{{ request.object.metadata.name }}'
+                annotations:
+                  gorizond-grb: 'gorizond-user.{{ user }}.{{ role }}'
               globalRoleName: 'gorizond-{{ role }}-{{ request.object.metadata.name }}'
               userName: '{{ user }}'
             kind: GlobalRoleBinding
@@ -43,14 +45,20 @@ spec:
             urlPath: "/apis/management.cattle.io/v3/globalrolebindings"
             jmesPath: "items[?metadata.labels.fleet=='{{ request.object.metadata.name }}']"
       mutate:
+        targets:
+          - apiVersion: "management.cattle.io/v3"
+            kind: GlobalRoleBinding
+            selector:
+              matchLabels:
+                fleet: '{{ request.object.metadata.name }}'
         foreach:
           - list: "globalBindings"
             preconditions:
               all:
-                - key: "{{ keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')] | [?split(@, '.')[1] == element.userName] | length(@) }}"
-                  operator: Equals
-                  value: 0
+                - key: "{{ element.metadata.annotations.gorizond-grb }}"
+                  operator: AnyNotIn
+                  value: {{ keys(request.object.metadata.annotations) }}
             patchStrategicMerge:
               metadata:
                 labels:
-                  canremove: '{{ element.userName }}'
+                  canremove: 'true'
