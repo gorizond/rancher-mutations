@@ -7,7 +7,6 @@ spec:
   background: true
   rules:
     - generate:
-        synchronize: true
         foreach:
           - apiVersion: management.cattle.io/v3
             context:
