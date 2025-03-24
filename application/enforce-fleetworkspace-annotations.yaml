@@ -62,12 +62,12 @@ spec:
               selector:
                 matchLabels:
                   binding: check
-                  canremove: 'false'
       mutate:
         patchStrategicMerge:
           metadata:
             labels:
               binding: ready
+              canremove: 'false'
       name: remove-label-if-valid
       preconditions:
         all:
