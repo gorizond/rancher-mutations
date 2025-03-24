@@ -42,7 +42,7 @@ spec:
             jmesPath: "items[?metadata.labels.fleet=='{{ request.object.metadata.name }}']"
       mutate:
         foreach:
-          - list: "{{ globalBindings }}"
+          - list: "{{ globalBindings[].metadata }}"
             preconditions:
               all:
                 - key: "{{ keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')] | [?contains(@, element.userName)] | length(@) }}"
