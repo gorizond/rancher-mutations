@@ -21,7 +21,7 @@ spec:
                 labels:
                   fleet: '{{ request.object.metadata.name }}'
                 annotations:
-                  gorizond: 'gorizond-user.{{ user }}.{{ role }}'
+                  'gorizond-user.{{ user }}.{{ role }}': '{{ role }}'
               globalRoleName: 'gorizond-{{ role }}-{{ request.object.metadata.name }}'
               userName: '{{ user }}'
             kind: GlobalRoleBinding
@@ -51,14 +51,11 @@ spec:
         targets:
           - apiVersion: "management.cattle.io/v3"
             kind: GlobalRoleBinding
-            selector:
-              matchLabels:
-                fleet: '{{ request.object.metadata.name }}'
         foreach:
           - list: "globalBindings"
             preconditions:
               all:
-                - key: {{ element.metadata.annotations.gorizond }}
+                - key: {{ keys(element.metadata.annotations) | [?starts_with(@, 'gorizond-user.')] }}
                   operator: AnyNotIn
                   value: {{ annotationsFW }}
             patchStrategicMerge:
