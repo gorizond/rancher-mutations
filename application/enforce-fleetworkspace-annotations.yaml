@@ -67,7 +67,7 @@ spec:
           metadata:
             labels:
               binding: ready
-              cleanup.kyverno.io/ttl: null
+              cleanup.kyverno.io/ttl: 'null'
       name: remove-label-if-valid
       preconditions:
         all:
