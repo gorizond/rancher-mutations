@@ -20,8 +20,8 @@ spec:
             data:
               metadata:
                 labels:
-                  fleet: {{ request.object.metadata.name }}
-              globalRoleName: gorizond-{{ role }}-{{ request.object.metadata.name }}
+                  fleet: '{{ request.object.metadata.name }}'
+              globalRoleName: 'gorizond-{{ role }}-{{ request.object.metadata.name }}'
               userName: '{{ user }}'
             kind: GlobalRoleBinding
             list: keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')]
