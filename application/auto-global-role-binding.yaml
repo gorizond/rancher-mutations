@@ -26,15 +26,17 @@ spec:
             list: keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')]
             name: gorizond-{{ role }}-{{ user }}-{{ request.object.metadata.name }}
       match:
-        resources:
-          kinds:
-            - management.cattle.io/v3/FleetWorkspace
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/FleetWorkspace
       name: sync-gorizond-bindings
     - name: mark-globalrolebinding-as-canremove-if-annotation-missing
       match:
-        resources:
-          kinds:
-            - "management.cattle.io/v3/FleetWorkspace"
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/FleetWorkspace
       context:
         - name: globalBindings
           apiCall:
@@ -57,4 +59,4 @@ spec:
             patchStrategicMerge:
               metadata:
                 labels:
-                  canremove: "true"
+                  canremove: '{{ element.userName }}'
