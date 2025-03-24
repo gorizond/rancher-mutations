@@ -20,8 +20,6 @@ spec:
           - resources:
               kinds:
                 - management.cattle.io/v3/User
-            operations:
-            - CREATE
       name: generate-fleetworkspace
     - generate:
         apiVersion: management.cattle.io/v3
@@ -56,8 +54,6 @@ spec:
           - resources:
               kinds:
                 - management.cattle.io/v3/User
-            operations:
-            - CREATE
       name: generate-admin-role
     - generate:
         apiVersion: management.cattle.io/v3
@@ -102,8 +98,6 @@ spec:
           - resources:
               kinds:
                 - management.cattle.io/v3/User
-            operations:
-            - CREATE
       name: generate-editor-role
     - generate:
         apiVersion: management.cattle.io/v3
@@ -142,6 +136,4 @@ spec:
           - resources:
               kinds:
                 - management.cattle.io/v3/User
-            operations:
-            - CREATE
       name: generate-view-role
