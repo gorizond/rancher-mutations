@@ -88,6 +88,15 @@ helm:
             - watch
       replicas: 1
     cleanupController:
+      rbac:
+        clusterRole:
+          extraResources:
+          - apiGroups:
+            - management.cattle.io
+            resources:
+            - globalrolebindings
+            verbs:
+            - delete
       replicas: 1
     reportsController:
       replicas: 1
