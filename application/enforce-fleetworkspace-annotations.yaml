@@ -31,7 +31,7 @@ spec:
           metadata:
             labels:
               binding: ready
-              canremove: 'true'
+              cleanup.kyverno.io/ttl: 1m
       name: invalidate-globalrolebinding
       preconditions:
         all:
@@ -67,7 +67,7 @@ spec:
           metadata:
             labels:
               binding: ready
-              canremove: 'false'
+              cleanup.kyverno.io/ttl: null
       name: remove-label-if-valid
       preconditions:
         all:
