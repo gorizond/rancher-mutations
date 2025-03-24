@@ -1,4 +1,4 @@
-apiVersion: kyverno.io/v1
+apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
   name: generate-globalrolebindings-from-annotations
@@ -17,12 +17,12 @@ spec:
                 variable:
                   jmesPath: element | split(@, '.') | @[2]
             data:
+              globalRoleName: gorizond-{{ role }}-{{ request.object.metadata.name }}
               metadata:
+                annotations:
+                  gorizond-user.{{ user }}.{{ role }}: '{{ role }}'
                 labels:
                   fleet: '{{ request.object.metadata.name }}'
-                annotations:
-                  'gorizond-user.{{ user }}.{{ role }}': '{{ role }}'
-              globalRoleName: 'gorizond-{{ role }}-{{ request.object.metadata.name }}'
               userName: '{{ user }}'
             kind: GlobalRoleBinding
             list: keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')]
@@ -33,8 +33,8 @@ spec:
               kinds:
                 - management.cattle.io/v3/FleetWorkspace
       name: sync-gorizond-bindings
-    - name: check-gorizond-bindings
-      context:
+      skipBackgroundRequests: true
+    - context:
         - apiCall:
             method: GET
             urlPath: >-
@@ -51,6 +51,8 @@ spec:
           - list: globalBindings
             patchStrategicMerge:
               metadata:
+                annotations:
+                  last-check: '{{ time_now_utc() }}'
                 labels:
                   binding: check
         targets:
@@ -59,3 +61,4 @@ spec:
             selector:
               matchLabels:
                 fleet: '{{ request.object.metadata.name }}'
+      name: check-gorizond-bindings

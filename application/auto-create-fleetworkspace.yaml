@@ -1,10 +1,10 @@
-apiVersion: kyverno.io/v1
+apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
   name: generate-fleetworkspace-on-user
 spec:
   admission: true
-  background: false
+  background: true
   rules:
     - generate:
         apiVersion: management.cattle.io/v3
