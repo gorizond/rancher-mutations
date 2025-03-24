@@ -4,7 +4,7 @@ metadata:
   name: generate-fleetworkspace-on-user
 spec:
   admission: true
-  background: true
+  background: false
   rules:
     - generate:
         apiVersion: management.cattle.io/v3
@@ -16,11 +16,12 @@ spec:
         kind: FleetWorkspace
         name: '{{request.object.username}}-workspace'
       match:
-        resources:
-          kinds:
-            - management.cattle.io/v3/User
-          operations:
-          - CREATE
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+            operations:
+            - CREATE
       name: generate-fleetworkspace
     - generate:
         apiVersion: management.cattle.io/v3
@@ -51,11 +52,12 @@ spec:
         kind: GlobalRole
         name: gorizond-admin-{{request.object.username}}-workspace
       match:
-        resources:
-          kinds:
-            - management.cattle.io/v3/User
-          operations:
-          - CREATE
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+            operations:
+            - CREATE
       name: generate-admin-role
     - generate:
         apiVersion: management.cattle.io/v3
@@ -96,11 +98,12 @@ spec:
         kind: GlobalRole
         name: gorizond-editor-{{request.object.username}}-workspace
       match:
-        resources:
-          kinds:
-            - management.cattle.io/v3/User
-          operations:
-          - CREATE
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+            operations:
+            - CREATE
       name: generate-editor-role
     - generate:
         apiVersion: management.cattle.io/v3
@@ -135,9 +138,10 @@ spec:
         kind: GlobalRole
         name: gorizond-view-{{request.object.username}}-workspace
       match:
-        resources:
-          kinds:
-            - management.cattle.io/v3/User
-          operations:
-          - CREATE
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+            operations:
+            - CREATE
       name: generate-view-role
