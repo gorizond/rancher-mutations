@@ -33,35 +33,29 @@ spec:
               kinds:
                 - management.cattle.io/v3/FleetWorkspace
       name: sync-gorizond-bindings
-    - name: mark-globalrolebinding-as-canremove-if-annotation-missing
+    - name: check-gorizond-bindings
+      context:
+        - apiCall:
+            method: GET
+            urlPath: >-
+              /apis/management.cattle.io/v3/globalrolebindings?labelSelector=fleet%3D{{
+              request.object.metadata.name }}
+          name: globalBindings
       match:
         any:
           - resources:
               kinds:
                 - management.cattle.io/v3/FleetWorkspace
-      context:
-        - name: globalBindings
-          apiCall:
-            urlPath: "/apis/management.cattle.io/v3/globalrolebindings"
-            jmesPath: "items[?metadata.labels.fleet=='{{ request.object.metadata.name }}']"
-        - name: annotationsFW
-          variable:
-            jmesPath: keys(request.object.metadata.annotations)
       mutate:
+        foreach:
+          - list: globalBindings
+            patchStrategicMerge:
+              metadata:
+                labels:
+                  binding: check
         targets:
-          - apiVersion: "management.cattle.io/v3"
+          - apiVersion: management.cattle.io/v3
             kind: GlobalRoleBinding
             selector:
               matchLabels:
                 fleet: '{{ request.object.metadata.name }}'
-        foreach:
-          - list: "globalBindings"
-            preconditions:
-              all:
-                - key: "{{ keys(element.metadata.annotations) }}"
-                  operator: AnyNotIn
-                  value: "{{ annotationsFW }}"
-            patchStrategicMerge:
-              metadata:
-                labels:
-                  canremove: 'true'
