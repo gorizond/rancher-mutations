@@ -7,7 +7,6 @@ spec:
   background: true
   rules:
     - generate:
-        synchronize: true
         apiVersion: management.cattle.io/v3
         data:
           metadata:
@@ -48,7 +47,6 @@ spec:
                 - CREATE
       name: generate-admin-role
     - generate:
-        synchronize: true
         apiVersion: management.cattle.io/v3
         data:
           metadata:
@@ -99,7 +97,6 @@ spec:
                 - CREATE
       name: generate-editor-role
     - generate:
-        synchronize: true
         apiVersion: management.cattle.io/v3
         data:
           metadata:
