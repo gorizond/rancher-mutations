@@ -1,0 +1,40 @@
+apiVersion: kyverno.io/v2beta1
+kind: ClusterPolicy
+metadata:
+  name: generate-owner-role-for-user
+spec:
+  admission: true
+  background: true
+  rules:
+    - context:
+        - name: fleet_name
+          variable:
+            value: '{{ request.object.metadata.labels.fleet }}'
+        - apiCall:
+            jmesPath: keys(metadata.annotations) | [?starts_with(@, 'field.cattle.io/creatorId')] | [@]
+            method: GET
+            urlPath: /apis/management.cattle.io/v3/fleetworkspaces/{{ fleet_name }}
+          name: user
+      generate:
+        apiVersion: management.cattle.io/v3
+        data:
+          globalRoleName: gorizond-admin-{{ fleet_name }}
+          metadata:
+            annotations:
+              gorizond-user.{{ user }}.admin: admin
+            labels:
+              fleet: '{{ fleet_name }}'
+          userName: '{{ user }}'
+        kind: GlobalRoleBinding
+        name: gorizond-admin-{{ user }}-{{ fleet_name }}
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/GlobalRole
+              selector:
+                matchLabels:
+                  role: admin
+              operations:
+                - CREATE
+      name: generate-owner-role

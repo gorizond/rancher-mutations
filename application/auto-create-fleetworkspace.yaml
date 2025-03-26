@@ -11,6 +11,7 @@ spec:
         data:
           metadata:
             annotations:
+              field.cattle.io/creatorId: '{{request.object.metadata.name}}'
               gorizond-user.{{request.object.metadata.name}}.admin: admin
           spec: {}
         kind: FleetWorkspace
@@ -24,6 +25,10 @@ spec:
     - generate:
         apiVersion: management.cattle.io/v3
         data:
+          metadata:
+            labels:
+              role: admin
+              fleet: '{{request.object.username}}-workspace'
           displayName: GitOps for {{request.object.username}} admin
           namespacedRules:
             '{{request.object.username}}-workspace':
@@ -58,6 +63,10 @@ spec:
     - generate:
         apiVersion: management.cattle.io/v3
         data:
+          metadata:
+            labels:
+              role: editor
+              fleet: '{{request.object.username}}-workspace'
           displayName: GitOps for {{request.object.username}} editor
           namespacedRules:
             '{{request.object.username}}-workspace':
@@ -102,6 +111,10 @@ spec:
     - generate:
         apiVersion: management.cattle.io/v3
         data:
+          metadata:
+            labels:
+              role: view
+              fleet: '{{request.object.username}}-workspace'
           displayName: GitOps for {{request.object.username}} view
           namespacedRules:
             '{{request.object.username}}-workspace':
