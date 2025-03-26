@@ -33,4 +33,3 @@ spec:
             kind: FleetWorkspace
             name: "{{ fleet_name }}"
       name: generate-owner-role
-      skipBackgroundRequests: false
