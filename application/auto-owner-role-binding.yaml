@@ -9,9 +9,9 @@ spec:
     - context:
         - name: fleet_name
           variable:
-            value: '{{ request.object.metadata.labels.fleet }}'
+            value: "{{ request.object.metadata.labels.fleet }}"
         - apiCall:
-            jmesPath: keys(metadata.annotations) | [?starts_with(@, 'field.cattle.io/creatorId')] | [@]
+            jmesPath: annotations."field.cattle.io/creatorId"
             method: GET
             urlPath: /apis/management.cattle.io/v3/fleetworkspaces/{{ fleet_name }}
           name: user
@@ -23,8 +23,8 @@ spec:
             annotations:
               gorizond-user.{{ user }}.admin: admin
             labels:
-              fleet: '{{ fleet_name }}'
-          userName: '{{ user }}'
+              fleet: "{{ fleet_name }}"
+          userName: "{{ user }}"
         kind: GlobalRoleBinding
         name: gorizond-admin-{{ user }}-{{ fleet_name }}
       match:
