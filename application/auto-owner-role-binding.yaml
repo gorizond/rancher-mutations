@@ -15,18 +15,6 @@ spec:
             method: GET
             urlPath: /apis/management.cattle.io/v3/fleetworkspaces/{{ fleet_name }}
           name: user
-      generate:
-        apiVersion: management.cattle.io/v3
-        data:
-          globalRoleName: gorizond-admin-{{ fleet_name }}
-          metadata:
-            annotations:
-              "gorizond-user.{{ user }}.admin": admin
-            labels:
-              fleet: "{{ fleet_name }}"
-          userName: "{{ user }}"
-        kind: GlobalRoleBinding
-        name: gorizond-admin-{{ user }}-{{ fleet_name }}
       match:
         any:
           - resources:
@@ -35,4 +23,13 @@ spec:
               selector:
                 matchLabels:
                   role: admin
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              "gorizond-user.{{ user }}.admin": admin
+        targets:
+          - apiVersion: management.cattle.io/v3
+            kind: FleetWorkspace
+            name: "{{ fleet_name }}"
       name: generate-owner-role
