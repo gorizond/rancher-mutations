@@ -35,6 +35,4 @@ spec:
               selector:
                 matchLabels:
                   role: admin
-              operations:
-                - CREATE
       name: generate-owner-role
