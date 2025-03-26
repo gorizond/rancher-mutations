@@ -11,7 +11,7 @@ spec:
           variable:
             value: "{{ request.object.metadata.labels.fleet }}"
         - apiCall:
-            jmesPath: annotations."field.cattle.io/creatorId"
+            jmesPath: metadata.annotations."field.cattle.io/creatorId"
             method: GET
             urlPath: /apis/management.cattle.io/v3/fleetworkspaces/{{ fleet_name }}
           name: user
