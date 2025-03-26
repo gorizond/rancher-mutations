@@ -7,15 +7,16 @@ spec:
   background: true
   rules:
     - generate:
+        synchronize: true
         apiVersion: management.cattle.io/v3
         data:
           metadata:
             labels:
               role: admin
-              fleet: '{{request.object.metadata.name}}'
+              fleet: "{{request.object.metadata.name}}"
           displayName: GitOps for admin {{request.object.metadata.name}}
           namespacedRules:
-            '{{request.object.metadata.name}}':
+            "{{request.object.metadata.name}}":
               - apiGroups:
                   - fleet.cattle.io
                 resources:
@@ -26,16 +27,16 @@ spec:
                   - clusters
                   - clustergroups
                 verbs:
-                  - '*'
+                  - "*"
           rules:
             - apiGroups:
                 - management.cattle.io
               resourceNames:
-                - '{{request.object.metadata.name}}'
+                - "{{request.object.metadata.name}}"
               resources:
                 - fleetworkspaces
               verbs:
-                - '*'
+                - "*"
         kind: GlobalRole
         name: gorizond-admin-{{request.object.metadata.name}}
       match:
@@ -47,15 +48,16 @@ spec:
                 - CREATE
       name: generate-admin-role
     - generate:
+        synchronize: true
         apiVersion: management.cattle.io/v3
         data:
           metadata:
             labels:
               role: editor
-              fleet: '{{request.object.metadata.name}}'
+              fleet: "{{request.object.metadata.name}}"
           displayName: GitOps for editor {{request.object.metadata.name}}
           namespacedRules:
-            '{{request.object.metadata.name}}':
+            "{{request.object.metadata.name}}":
               - apiGroups:
                   - fleet.cattle.io
                 resources:
@@ -77,7 +79,7 @@ spec:
             - apiGroups:
                 - management.cattle.io
               resourceNames:
-                - '{{request.object.metadata.name}}'
+                - "{{request.object.metadata.name}}"
               resources:
                 - fleetworkspaces
               verbs:
@@ -97,15 +99,16 @@ spec:
                 - CREATE
       name: generate-editor-role
     - generate:
+        synchronize: true
         apiVersion: management.cattle.io/v3
         data:
           metadata:
             labels:
               role: view
-              fleet: '{{request.object.metadata.name}}'
+              fleet: "{{request.object.metadata.name}}"
           displayName: GitOps for view {{request.object.metadata.name}}
           namespacedRules:
-            '{{request.object.metadata.name}}':
+            "{{request.object.metadata.name}}":
               - apiGroups:
                   - fleet.cattle.io
                 resources:
@@ -123,7 +126,7 @@ spec:
             - apiGroups:
                 - management.cattle.io
               resourceNames:
-                - '{{request.object.metadata.name}}'
+                - "{{request.object.metadata.name}}"
               resources:
                 - fleetworkspaces
               verbs:
