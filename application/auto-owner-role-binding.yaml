@@ -43,5 +43,5 @@ spec:
         targets:
           - apiVersion: management.cattle.io/v3
             kind: FleetWorkspace
-            name: "{{ fleet_name }}"
+            name: "{{ request.object.metadata.labels.fleet }}"
       name: generate-owner-role
