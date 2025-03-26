@@ -21,7 +21,7 @@ spec:
           globalRoleName: gorizond-admin-{{ fleet_name }}
           metadata:
             annotations:
-              gorizond-user.{{ user }}.admin: admin
+              "gorizond-user.{{ user }}.admin": admin
             labels:
               fleet: "{{ fleet_name }}"
           userName: "{{ user }}"
@@ -39,7 +39,7 @@ spec:
         patchStrategicMerge:
           metadata:
             annotations:
-              gorizond-user.{{ user }}.admin: admin
+              "gorizond-user.{{ user }}.admin": admin
         targets:
           - apiVersion: management.cattle.io/v3
             kind: FleetWorkspace
