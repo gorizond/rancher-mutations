@@ -12,21 +12,21 @@ helm:
       rbac:
         clusterRole:
           extraResources:
-          - apiGroups:
-            - management.cattle.io
-            resources:
-            - users
-            - fleetworkspaces
-            - globalroles
-            - globalrolebindings
-            verbs:
-            - create
-            - get
-            - list
-            - update
-            - delete
-            - patch
-            - watch
+            - apiGroups:
+                - management.cattle.io
+              resources:
+                - users
+                - fleetworkspaces
+                - globalroles
+                - globalrolebindings
+              verbs:
+                - create
+                - get
+                - list
+                - update
+                - delete
+                - patch
+                - watch
           # - apiGroups:
           #     - '*'
           #   resources:
@@ -38,14 +38,14 @@ helm:
           #   verbs:
           #     - '*'
           extraRules:
-          - apiGroups:
-            - management.cattle.io
-            resources:
-            - fleetworkspaces
-            - globalroles
-            - globalrolebindings
-            verbs:
-            - '*'
+            - apiGroups:
+                - management.cattle.io
+              resources:
+                - fleetworkspaces
+                - globalroles
+                - globalrolebindings
+              verbs:
+                - "*"
           # - apiGroups:
           #     - '*'
           #   resources:
@@ -61,42 +61,42 @@ helm:
       rbac:
         clusterRole:
           extraResources:
-          # - apiGroups:
-          #     - '*'
-          #   resources:
-          #     - '*'
-          #   verbs:
-          #     - '*'
-          # - nonResourceURLs:
-          #     - '*'
-          #   verbs:
-          #     - '*'
-          - apiGroups:
-            - management.cattle.io
-            resources:
-            - users
-            - fleetworkspaces
-            - globalroles
-            - globalrolebindings
-            verbs:
-            - get
-            - create
-            - update
-            - delete
-            - patch
-            - list
-            - watch
+            - apiGroups:
+                - "*"
+              resources:
+                - "*"
+              verbs:
+                - "*"
+            - nonResourceURLs:
+                - "*"
+              verbs:
+                - "*"
+            - apiGroups:
+                - management.cattle.io
+              resources:
+                - users
+                - fleetworkspaces
+                - globalroles
+                - globalrolebindings
+              verbs:
+                - get
+                - create
+                - update
+                - delete
+                - patch
+                - list
+                - watch
       replicas: 1
     cleanupController:
       rbac:
         clusterRole:
           extraResources:
-          - apiGroups:
-            - management.cattle.io
-            resources:
-            - globalrolebindings
-            verbs:
-            - '*'
+            - apiGroups:
+                - management.cattle.io
+              resources:
+                - globalrolebindings
+              verbs:
+                - "*"
       replicas: 1
     reportsController:
       replicas: 1
