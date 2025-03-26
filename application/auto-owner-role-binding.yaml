@@ -35,4 +35,13 @@ spec:
               selector:
                 matchLabels:
                   role: admin
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              gorizond-user.{{ user }}.admin: admin
+        targets:
+          - apiVersion: management.cattle.io/v3
+            kind: FleetWorkspace
+            name: { { fleet_name } }
       name: generate-owner-role
