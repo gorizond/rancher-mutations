@@ -28,7 +28,7 @@ spec:
         kind: GlobalRoleBinding
         name: gorizond-admin-{{ user }}-{{ fleet_name }}
       match:
-        all:
+        any:
           - resources:
               kinds:
                 - management.cattle.io/v3/GlobalRole
