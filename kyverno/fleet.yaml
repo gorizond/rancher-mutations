@@ -95,6 +95,7 @@ helm:
                 - management.cattle.io
               resources:
                 - globalrolebindings
+                - globalroles
               verbs:
                 - "*"
       replicas: 1
