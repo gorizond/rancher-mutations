@@ -45,6 +45,7 @@ spec:
                 - management.cattle.io/v3/FleetWorkspace
               operations:
                 - CREATE
+                - UPDATE
       mutate:
         foreach:
           - list: globalBindings
