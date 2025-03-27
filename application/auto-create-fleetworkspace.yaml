@@ -20,6 +20,8 @@ spec:
           - resources:
               kinds:
                 - management.cattle.io/v3/User
+              operations:
+                - CREATE
       name: generate-fleetworkspace
     - generate:
         apiVersion: management.cattle.io/v3

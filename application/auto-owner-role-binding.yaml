@@ -23,6 +23,8 @@ spec:
               selector:
                 matchLabels:
                   role: admin
+              operations:
+                - CREATE
       mutate:
         patchStrategicMerge:
           metadata:

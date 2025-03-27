@@ -20,10 +20,10 @@ spec:
               globalRoleName: gorizond-{{ role }}-{{ request.object.metadata.name }}
               metadata:
                 annotations:
-                  gorizond-user.{{ user }}.{{ role }}: '{{ role }}'
+                  gorizond-user.{{ user }}.{{ role }}: "{{ role }}"
                 labels:
-                  fleet: '{{ request.object.metadata.name }}'
-              userName: '{{ user }}'
+                  fleet: "{{ request.object.metadata.name }}"
+              userName: "{{ user }}"
             kind: GlobalRoleBinding
             list: keys(request.object.metadata.annotations) | [?starts_with(@, 'gorizond-user.')]
             name: gorizond-{{ role }}-{{ user }}-{{ request.object.metadata.name }}
@@ -46,13 +46,15 @@ spec:
           - resources:
               kinds:
                 - management.cattle.io/v3/FleetWorkspace
+              operations:
+                - CREATE
       mutate:
         foreach:
           - list: globalBindings
             patchStrategicMerge:
               metadata:
                 annotations:
-                  last-check: '{{ time_now_utc() }}'
+                  last-check: "{{ time_now_utc() }}"
                 labels:
                   binding: check
         targets:
@@ -60,5 +62,5 @@ spec:
             kind: GlobalRoleBinding
             selector:
               matchLabels:
-                fleet: '{{ request.object.metadata.name }}'
+                fleet: "{{ request.object.metadata.name }}"
       name: check-gorizond-bindings
