@@ -12,6 +12,7 @@ spec:
           metadata:
             annotations:
               field.cattle.io/creatorId: "{{request.object.metadata.name}}"
+              "gorizond-user.{{request.object.metadata.name}}.admin": admin
           spec: {}
         kind: FleetWorkspace
         name: "{{request.object.username}}-workspace"
