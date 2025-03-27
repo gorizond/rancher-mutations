@@ -6,7 +6,8 @@ spec:
   admission: true
   background: true
   rules:
-    - match:
+    - name: on-delete-fleetworkspace
+      match:
         any:
           - resources:
               kinds:
