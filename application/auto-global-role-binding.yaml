@@ -33,13 +33,10 @@ spec:
               kinds:
                 - management.cattle.io/v3/FleetWorkspace
       name: sync-gorizond-bindings
-      skipBackgroundRequests: true
     - context:
         - apiCall:
             method: GET
-            urlPath: >-
-              /apis/management.cattle.io/v3/globalrolebindings?labelSelector=fleet%3D{{
-              request.object.metadata.name }}
+            urlPath: "/apis/management.cattle.io/v3/globalrolebindings?labelSelector=fleet%3D{{ request.object.metadata.name }}"
           name: globalBindings
       match:
         any:

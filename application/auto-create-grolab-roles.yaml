@@ -2,8 +2,6 @@ apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
   name: generate-globalrole-for-fleetworkspace
-  annotations:
-    pod-policies.kyverno.io/autogen-controllers: none
 spec:
   admission: true
   background: true
