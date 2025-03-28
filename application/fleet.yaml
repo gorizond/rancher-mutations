@@ -1,6 +1,0 @@
-defaultNamespace: default
-
-dependsOn:
-  - selector:
-      matchLabels:
-        kyverno: operator
