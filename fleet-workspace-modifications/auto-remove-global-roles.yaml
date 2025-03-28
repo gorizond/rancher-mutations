@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v2beta1
+kind: ClusterPolicy
+metadata:
+  name: remove-globalrole-for-fleetworkspace
+spec:
+  admission: true
+  background: true
+  rules:
+    - name: on-delete-fleetworkspace
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/FleetWorkspace
+              operations:
+                - DELETE
+      mutate:
+        targets:
+          - apiVersion: management.cattle.io/v3
+            kind: GlobalRole
+            selector:
+              matchLabels:
+                fleet: "{{request.object.metadata.name}}"
+        patchStrategicMerge:
+          metadata:
+            labels:
+              cleanup.kyverno.io/ttl: 1m

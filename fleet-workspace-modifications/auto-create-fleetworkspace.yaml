@@ -1,0 +1,180 @@
+apiVersion: kyverno.io/v2beta1
+kind: ClusterPolicy
+metadata:
+  name: generate-fleetworkspace-on-user
+spec:
+  admission: true
+  background: true
+  rules:
+    - generate:
+        apiVersion: management.cattle.io/v3
+        data:
+          metadata:
+            annotations:
+              field.cattle.io/creatorId: "{{request.object.metadata.name}}"
+              "gorizond-user.{{request.object.metadata.name}}.admin": admin
+          spec: {}
+        kind: FleetWorkspace
+        name: "{{request.object.username}}-workspace"
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+              operations:
+                - CREATE
+      name: generate-fleetworkspace
+    - generate:
+        apiVersion: management.cattle.io/v3
+        data:
+          metadata:
+            labels:
+              role: admin
+              fleet: "{{request.object.username}}-workspace"
+          displayName: GitOps for admin {{request.object.username}}-workspace
+          namespacedRules:
+            "{{request.object.username}}-workspace":
+              - apiGroups:
+                  - fleet.cattle.io
+                resources:
+                  - gitrepos
+                  - bundles
+                  - clusterregistrationtokens
+                  - gitreporestrictions
+                  - clusters
+                  - clustergroups
+                verbs:
+                  - "*"
+          rules:
+            - apiGroups:
+                - management.cattle.io
+              resourceNames:
+                - "{{request.object.username}}-workspace"
+              resources:
+                - fleetworkspaces
+              verbs:
+                - "*"
+        kind: GlobalRole
+        name: gorizond-admin-{{request.object.username}}-workspace
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+              operations:
+                - CREATE
+      name: generate-admin-role
+    - generate:
+        apiVersion: management.cattle.io/v3
+        data:
+          metadata:
+            labels:
+              role: editor
+              fleet: "{{request.object.username}}-workspace"
+          displayName: GitOps for editor {{request.object.username}}-workspace
+          namespacedRules:
+            "{{request.object.username}}-workspace":
+              - apiGroups:
+                  - fleet.cattle.io
+                resources:
+                  - gitrepos
+                  - bundles
+                  - clusterregistrationtokens
+                  - gitreporestrictions
+                  - clusters
+                  - clustergroups
+                verbs:
+                  - get
+                  - list
+                  - watch
+                  - create
+                  - update
+                  - patch
+                  - delete
+          rules:
+            - apiGroups:
+                - management.cattle.io
+              resourceNames:
+                - "{{request.object.username}}-workspace"
+              resources:
+                - fleetworkspaces
+              verbs:
+                - get
+                - list
+                - watch
+                - update
+                - patch
+        kind: GlobalRole
+        name: gorizond-editor-{{request.object.username}}-workspace
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+              operations:
+                - CREATE
+      name: generate-editor-role
+    - generate:
+        apiVersion: management.cattle.io/v3
+        data:
+          metadata:
+            labels:
+              role: view
+              fleet: "{{request.object.username}}-workspace"
+          displayName: GitOps for view {{request.object.username}}-workspace
+          namespacedRules:
+            "{{request.object.username}}-workspace":
+              - apiGroups:
+                  - fleet.cattle.io
+                resources:
+                  - gitrepos
+                  - bundles
+                  - clusterregistrationtokens
+                  - gitreporestrictions
+                  - clusters
+                  - clustergroups
+                verbs:
+                  - get
+                  - list
+                  - watch
+          rules:
+            - apiGroups:
+                - management.cattle.io
+              resourceNames:
+                - "{{request.object.username}}-workspace"
+              resources:
+                - fleetworkspaces
+              verbs:
+                - get
+                - list
+                - watch
+        kind: GlobalRole
+        name: gorizond-view-{{request.object.username}}-workspace
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+              operations:
+                - CREATE
+      name: generate-view-role
+    - generate:
+        apiVersion: management.cattle.io/v3
+        data:
+          globalRoleName: gorizond-admin-{{request.object.username}}-workspace
+          metadata:
+            annotations:
+              "gorizond-user.{{ request.object.metadata.name }}.admin": admin
+            labels:
+              fleet: "{{request.object.username}}-workspace"
+          userName: "{{ request.object.metadata.name }}"
+        kind: GlobalRoleBinding
+        name: gorizond-admin-{{request.object.metadata.name}}-{{request.object.username}}-workspace
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/User
+              operations:
+                - CREATE
+      name: generate-admin-role-binding
