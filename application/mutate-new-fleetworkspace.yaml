@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v2beta1
+kind: ClusterPolicy
+metadata:
+  name: mutate-new-fleetworkspace
+spec:
+  admission: true
+  background: true
+  rules:
+    - name: on-create-fleetworkspace
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/FleetWorkspace
+              operations:
+                - CREATE
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              'gorizond-user.{{ request.object.metadata.annotations."field.cattle.io/creatorId" }}.admin': admin
