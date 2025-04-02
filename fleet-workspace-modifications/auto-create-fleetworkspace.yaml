@@ -87,10 +87,8 @@ spec:
                   - get
                   - list
                   - watch
-                  - create
                   - update
                   - patch
-                  - delete
           rules:
             - apiGroups:
                 - management.cattle.io
