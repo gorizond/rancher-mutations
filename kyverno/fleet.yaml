@@ -105,6 +105,12 @@ helm:
                 - globalroles
               verbs:
                 - "*"
+            - apiGroups:
+                - provisioning.cattle.io
+              resources:
+                - clusters
+              verbs:
+                - "*"
       replicas: 1
     reportsController:
       replicas: 1
