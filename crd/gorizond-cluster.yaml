@@ -11,7 +11,7 @@ spec:
         data:
           metadata:
             annotations:
-              "gorizond-user.{{ request.userInfo.username }}.admin": admin
+              gorizond-user-creator: "{{ request.userInfo.username }}"
         kind: Cluster
         name: "{{request.object.metadata.name}}"
         namespace: "{{request.object.metadata.namespace}}"
