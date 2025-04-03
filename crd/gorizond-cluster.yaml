@@ -1,0 +1,25 @@
+apiVersion: kyverno.io/v2beta1
+kind: ClusterPolicy
+metadata:
+  name: generate-imported-cluster-provisioning
+spec:
+  admission: true
+  background: true
+  rules:
+    - generate:
+        synchronize: true
+        apiVersion: provisioning.cattle.io/v1
+        data:
+          spec:
+            kubernetesVersion: "{{ request.object.spec.kubernetesVersion }}"
+        kind: Cluster
+        name: "{{request.object.metadata.name}}"
+        namespace: "{{request.object.metadata.namespace}}"
+      name: generate-imported-cluster
+      match:
+        any:
+          - resources:
+              kinds:
+                - provisioning.gorizond.io/v1alpha1/Cluster
+              operations:
+                - CREATE

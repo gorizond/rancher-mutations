@@ -27,6 +27,13 @@ helm:
                 - delete
                 - patch
                 - watch
+            - apiGroups:
+                - provisioning.cattle.io
+                - provisioning.gorizond.io
+              resources:
+                - clusters
+              verbs:
+                - "*"
           # - apiGroups:
           #     - '*'
           #   resources:

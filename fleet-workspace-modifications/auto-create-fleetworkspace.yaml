@@ -54,6 +54,14 @@ spec:
                 - fleetworkspaces
               verbs:
                 - "*"
+            - apiGroups:
+                - provisioning.gorizond.io
+              resourceNames:
+                - "{{request.object.username}}-workspace"
+              resources:
+                - clusters
+              verbs:
+                - "*"
         kind: GlobalRole
         name: gorizond-admin-{{request.object.username}}-workspace
       match:
@@ -102,6 +110,18 @@ spec:
                 - watch
                 - update
                 - patch
+            - apiGroups:
+                - provisioning.gorizond.io
+              resourceNames:
+                - "{{request.object.username}}-workspace"
+              resources:
+                - clusters
+              verbs:
+                - get
+                - list
+                - watch
+                - update
+                - patch
         kind: GlobalRole
         name: gorizond-editor-{{request.object.username}}-workspace
       match:
@@ -142,6 +162,16 @@ spec:
                 - "{{request.object.username}}-workspace"
               resources:
                 - fleetworkspaces
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - provisioning.gorizond.io
+              resourceNames:
+                - "{{request.object.username}}-workspace"
+              resources:
+                - clusters
               verbs:
                 - get
                 - list
