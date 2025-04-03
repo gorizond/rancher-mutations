@@ -4,20 +4,16 @@ metadata:
   name: gorizond-user-creator-binding
 spec:
   admission: true
-  background: false
+  background: true
   rules:
     - generate:
         apiVersion: rbac.authorization.k8s.io/v1
         data:
-          roleRef:
-            apiGroup: rbac.authorization.k8s.io
-            kind: ClusterRole
-            name: "{{ request.object.status.clusterName }}-clusterowner"
-          subjects:
-            - apiGroup: rbac.authorization.k8s.io
-              kind: User
-              name: '{{ request.object.metadata.annotations."gorizond-user-creator" }}'
-        kind: ClusterRoleBinding
+          clusterName: "{{ request.object.status.clusterName }}"
+          roleTemplateName: cluster-owner
+          userName: '{{ request.object.metadata.annotations."gorizond-user-creator" }}'
+        kind: ClusterRoleTemplateBinding
+        namespace: "{{ request.object.status.clusterName }}"
         name: "crb-admin-{{ request.object.metadata.uid }}"
       name: create-cluster
       match:
