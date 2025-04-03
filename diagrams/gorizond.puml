@@ -25,12 +25,7 @@ package "Rancher Management Platform" as RancherMgmt {
     rectangle "User 2" as User2 <<User>>
     rectangle "User 3" as User3 <<User>>
   }
-  
-  ' Adding extra space between users and workspaces
-  rectangle " " as Spacer1 #transparent
-  rectangle " " as Spacer2 #transparent
-  rectangle " " as Spacer3 #transparent
-  
+
   'Fleet workspaces layer  
   package "Fleet Workspaces" as Fleets {
     package "User1's Fleet Workspace" as Fleet1 {
@@ -84,11 +79,6 @@ package "Rancher Management Platform" as RancherMgmt {
     }
   }
 }
-
-' Creating vertical space by connecting users to invisible spacers
-User1 -[hidden]-> Spacer1
-User2 -[hidden]-> Spacer2
-User3 -[hidden]-> Spacer3
 
 ' User relationships with their workspaces
 User1 -[#green,bold]-> User1Workspace: owns
