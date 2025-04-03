@@ -1,0 +1,1 @@
+![gorizond](https://raw.githubusercontent.com/gorizond/rancher-mutations/refs/heads/main/diagrams/gorizond.svg)

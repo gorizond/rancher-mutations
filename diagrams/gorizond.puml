@@ -16,7 +16,7 @@ skinparam linetype ortho
 skinparam backgroundColor White
 skinparam rectangleBorderColor DarkSlateGray
 
-title Rancher Management Architecture
+title Gorizond Management Architecture
 
 package "Rancher Management Platform" as RancherMgmt {
   'Users layer
