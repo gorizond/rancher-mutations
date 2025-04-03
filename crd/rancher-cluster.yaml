@@ -9,17 +9,17 @@ spec:
     - generate:
         apiVersion: management.cattle.io/v3
         data:
-          clusterName: "{{ request.object.status.clusterName }}"
+          clusterName: "{{ request.object.metadata.name }}"
           roleTemplateName: cluster-owner
           userName: '{{ request.object.metadata.annotations."gorizond-user-creator" }}'
         kind: ClusterRoleTemplateBinding
-        namespace: "{{ request.object.status.clusterName }}"
+        namespace: "{{ request.object.metadata.name }}"
         name: "crb-admin-{{ request.object.metadata.uid }}"
       name: create-cluster
       match:
         any:
           - resources:
               kinds:
-                - provisioning.cattle.io/v1/Cluster
+                - management.cattle.io/v3/Cluster
               operations:
                 - CREATE
