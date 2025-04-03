@@ -99,18 +99,24 @@ helm:
         clusterRole:
           extraResources:
             - apiGroups:
-                - management.cattle.io
+                - "*"
               resources:
-                - globalrolebindings
-                - globalroles
+                - "*"
               verbs:
                 - "*"
-            - apiGroups:
-                - provisioning.cattle.io
-              resources:
-                - clusters
-              verbs:
-                - "*"
+            # - apiGroups:
+            #     - management.cattle.io
+            #   resources:
+            #     - globalrolebindings
+            #     - globalroles
+            #   verbs:
+            #     - "*"
+            # - apiGroups:
+            #     - provisioning.cattle.io
+            #   resources:
+            #     - clusters
+            #   verbs:
+            #     - "*"
       replicas: 1
     reportsController:
       replicas: 1
