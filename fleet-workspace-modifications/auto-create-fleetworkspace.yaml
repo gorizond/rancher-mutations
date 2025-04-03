@@ -45,6 +45,12 @@ spec:
                   - clustergroups
                 verbs:
                   - "*"
+              - apiGroups:
+                  - provisioning.gorizond.io
+                resources:
+                  - clusters
+                verbs:
+                  - "*"
           rules:
             - apiGroups:
                 - management.cattle.io
@@ -91,6 +97,16 @@ spec:
                   - gitreporestrictions
                   - clusters
                   - clustergroups
+                verbs:
+                  - get
+                  - list
+                  - watch
+                  - update
+                  - patch
+              - apiGroups:
+                  - provisioning.gorizond.io
+                resources:
+                  - clusters
                 verbs:
                   - get
                   - list
@@ -151,6 +167,14 @@ spec:
                   - gitreporestrictions
                   - clusters
                   - clustergroups
+                verbs:
+                  - get
+                  - list
+                  - watch
+              - apiGroups:
+                  - provisioning.gorizond.io
+                resources:
+                  - clusters
                 verbs:
                   - get
                   - list
