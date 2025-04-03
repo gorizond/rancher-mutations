@@ -21,5 +21,3 @@ spec:
           - resources:
               kinds:
                 - provisioning.gorizond.io/v1alpha1/Cluster
-              operations:
-                - CREATE
