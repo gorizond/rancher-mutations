@@ -87,11 +87,26 @@ spec:
                   strictRangeCheck:
                     type: boolean
               matchConstraints:
-                additionalProperties:
-                  type: object
-                  x-kubernetes-preserve-unknown-fields: true
                 description: Set resource filter match constraints for the matched types.
                 type: object
+                properties:
+                  resourceRules:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        apiGroups:
+                          type: array
+                          items:
+                            type: string
+                        apiVersions:
+                          type: array
+                          items:
+                            type: string
+                        kinds:
+                          type: array
+                          items:
+                            type: string
             required:
             - source
             type: object
