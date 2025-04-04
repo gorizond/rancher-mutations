@@ -1,5 +1,8 @@
 defaultNamespace: default
 
+kustomize:
+  dir: ./kustomize
+
 dependsOn:
   - selector:
       matchLabels:
