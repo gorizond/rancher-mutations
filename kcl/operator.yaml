@@ -183,13 +183,6 @@ subjects:
   namespace: default
 ---
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: selfsigned-issuer
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: kcl
@@ -199,7 +192,7 @@ spec:
   isCA: true
   commonName: kcl
   issuerRef:
-    name: selfsigned-issuer
+    name: ca-issuer
     kind: ClusterIssuer
 ---
 apiVersion: cert-manager.io/v1
