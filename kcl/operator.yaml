@@ -188,8 +188,7 @@ metadata:
   name: kcl
   namespace: default
 spec:
-  ca:
-    secretName: tls-kcl
+  selfSigned: {}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -202,9 +201,9 @@ spec:
     - kcl-webhook-server.default.svc
     - kcl-webhook-server.default.svc.cluster.local
   issuerRef:
-    name: kcl
+    group: cert-manager.io
     kind: Issuer
-    namespace: default
+    name: kcl
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
