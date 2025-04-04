@@ -160,8 +160,8 @@ spec:
         - -tls-cert-file=/etc/webhook/certs/tls.crt
         - -tls-key-file=/etc/webhook/certs/tls.key
         - -addr=:8081
-        image: kcllang/webhook-server
-        imagePullPolicy: Always
+        image: kcllang/webhook-server:v0.11.0
+        imagePullPolicy: IfNotPresent
         name: kcl-webhook-server
         volumeMounts:
         - mountPath: /etc/webhook/certs
@@ -180,7 +180,7 @@ spec:
           value: kcl-webhook-server
         - name: WEBHOOK_NAMESPACE
           value: default
-        image: kcllang/webhook-init
+        image: kcllang/webhook-init:v0.11.0
         imagePullPolicy: IfNotPresent
         name: kcl-webhook-init
         volumeMounts:
