@@ -201,7 +201,7 @@ metadata:
   name: ca-issuer
 spec:
   ca:
-    secretName: kcl-secret  # Secret из шага 2
+    secretName: kcl-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -299,5 +299,6 @@ spec:
           readOnly: true
       serviceAccountName: kcl-webhook
       volumes:
-      - emptyDir: {}
-        name: webhook-certs
+      - name: webhook-certs
+        secret:
+          secretName: webhook-tls
