@@ -9,7 +9,7 @@ fleet_workspaces = [
         "metadata": {
             "name": "{}-workspace".format(user["metadata"]["name"]),
             "annotations": {
-                "field.cattle.io/creatorId": user["metadata"]["name"]
+                "field.cattle.io/creatorId": user["username"]
             }
         },
         "spec": {}

@@ -48,6 +48,50 @@ spec:
                 description: Source is a required field for providing a KCL script
                   inline.
                 type: string
+              credentials:
+                additionalProperties:
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+                description: credentials in key-value pairs format.
+                type: object
+              config:
+                description: config are pkg/api/ConfigSpec.
+                type: object
+                properties:
+                  arguments:
+                    type: array
+                    items:
+                      type: string
+                  settings:
+                    type: array
+                    items:
+                      type: string
+                  overrides:
+                    type: array
+                    items:
+                      type: string
+                  pathSelectors:
+                    type: array
+                    items:
+                      type: string
+                  vendor:
+                    type: boolean
+                  sortKeys:
+                    type: boolean
+                  showHidden:
+                    type: boolean
+                  disableNone:
+                    type: boolean
+                  debug:
+                    type: boolean
+                  strictRangeCheck:
+                    type: boolean
+              matchConstraints:
+                additionalProperties:
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+                description: Set resource filter match constraints for the matched types.
+                type: object
             required:
             - source
             type: object
