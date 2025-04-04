@@ -183,10 +183,9 @@ subjects:
   namespace: default
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: kcl
-  namespace: default
+  name: selfsigned-issuer
 spec:
   selfSigned: {}
 ---
@@ -194,23 +193,43 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: kcl
+  namespace: cert-manager
+spec:
+  secretName: kcl-secret
+  isCA: true
+  commonName: kcl
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: ca-issuer
+spec:
+  ca:
+    secretName: kcl-secret  # Secret из шага 2
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: webhook-cert
   namespace: default
 spec:
-  secretName: webhook-kcl
+  secretName: webhook-tls
   dnsNames:
     - kcl-webhook-server.default.svc
     - kcl-webhook-server.default.svc.cluster.local
   issuerRef:
-    group: cert-manager.io
-    kind: Issuer
-    name: kcl
+    name: ca-issuer
+    kind: ClusterIssuer
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: kcl-webhook-server
   annotations:
-    cert-manager.io/inject-ca-from: default/kcl
+    cert-manager.io/inject-ca-from: cert-manager/kcl 
 webhooks:
   - admissionReviewVersions:
       - v1
