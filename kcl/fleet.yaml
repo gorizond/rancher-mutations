@@ -1,4 +1,1 @@
 defaultNamespace: default
-
-kustomize:
-  dir: ./kustomize
