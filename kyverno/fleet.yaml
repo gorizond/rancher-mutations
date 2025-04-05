@@ -32,6 +32,7 @@ helm:
                 - provisioning.gorizond.io
               resources:
                 - clusters
+                - clusters/status
               verbs:
                 - "*"
           # - apiGroups:
@@ -79,6 +80,14 @@ helm:
               verbs:
                 - "*"
             - apiGroups:
+                - provisioning.cattle.io
+                - management.cattle.io
+              resources:
+                - clusters
+                - clusters/status
+              verbs:
+                - "*"
+            - apiGroups:
                 - management.cattle.io
               resources:
                 - users
@@ -110,6 +119,7 @@ helm:
                 - management.cattle.io
               resources:
                 - clusters
+                - clusters/status
               verbs:
                 - "*"
       replicas: 1
