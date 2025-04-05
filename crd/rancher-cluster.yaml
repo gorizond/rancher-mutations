@@ -40,7 +40,7 @@ spec:
         targets:
          - apiVersion: provisioning.gorizond.io/v1alpha1
            kind: Cluster
-           name: "{{request.object.status.displayName }}"
+           name: "{{request.object.spec.displayName }}"
            namespace: "{{request.object.spec.fleetWorkspaceName }}"
         patchStrategicMerge:
           status:
