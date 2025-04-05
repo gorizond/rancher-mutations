@@ -21,6 +21,25 @@ spec:
                   nullable: true
                   type: string
               type: object
+            status:
+              properties:
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      error:
+                        type: boolean
+                      lastUpdateTime:
+                        type: string
+                        format: date-time
+                      status:
+                        type: string
+                      transitioning:
+                        type: boolean
+                      type:
+                        type: string
+              type: object
           type: object
       served: true
       storage: true
