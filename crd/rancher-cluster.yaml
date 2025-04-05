@@ -23,3 +23,20 @@ spec:
                 - management.cattle.io/v3/Cluster
               operations:
                 - CREATE
+    - name: update-k8s-cluster-status
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/Cluster
+              operations:
+                - UPDATE
+      mutate:
+        targets:
+         - apiVersion: provisioning.gorizond.io/v1alpha1
+           kind: Cluster
+           name: "{{request.object.metadata.name}}"
+           namespace: "{{request.object.metadata.namespace}}"
+        patchStrategicMerge:
+          status:
+            conditions: '{{ request.object.status.conditions }}'
