@@ -36,7 +36,7 @@ spec:
          - apiVersion: provisioning.gorizond.io/v1alpha1
            kind: Cluster
            name: "{{request.object.status.displayName }}"
-           namespace: "{{request.object.status.fleetWorkspaceName }}"
+           namespace: "{{request.object.spec.fleetWorkspaceName }}"
         patchStrategicMerge:
           status:
             conditions: '{{ request.object.status.conditions }}'
