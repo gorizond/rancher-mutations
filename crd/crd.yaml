@@ -39,6 +39,9 @@ spec:
                         type: boolean
                       type:
                         type: string
+                      message:
+                        type: string
+                        nullable: true
               type: object
           type: object
       served: true
