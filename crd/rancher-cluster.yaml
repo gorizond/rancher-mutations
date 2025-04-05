@@ -28,14 +28,14 @@ spec:
         any:
           - resources:
               kinds:
-                - provisioning.cattle.io/v1/Cluster
+                - management.cattle.io/v3/Cluster
               operations:
                 - UPDATE
       mutate:
         targets:
          - apiVersion: provisioning.gorizond.io/v1alpha1
            kind: Cluster
-           name: "{{request.object.metadata.name}}"
+           name: "{{request.object.status.displayName }}"
            namespace: "{{request.object.status.fleetWorkspaceName }}"
         patchStrategicMerge:
           status:
