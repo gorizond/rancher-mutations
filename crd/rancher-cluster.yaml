@@ -36,7 +36,7 @@ spec:
          - apiVersion: provisioning.gorizond.io/v1alpha1
            kind: Cluster
            name: "{{request.object.metadata.name}}"
-           namespace: "{{request.object.metadata.namespace}}"
+           namespace: "{{request.object.metadata.annotations.\"generate.kyverno.io/trigger-namespace\" }}"
         patchStrategicMerge:
           status:
             conditions: '{{ request.object.status.conditions }}'
