@@ -31,6 +31,11 @@ spec:
                 - management.cattle.io/v3/Cluster
               operations:
                 - UPDATE
+      preconditions:
+        all:
+          - key: '{{request.object.metadata.name }}'
+            operator: NotEquals
+            value: 'local'
       mutate:
         targets:
          - apiVersion: provisioning.gorizond.io/v1alpha1
