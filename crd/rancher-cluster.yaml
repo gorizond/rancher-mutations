@@ -44,4 +44,5 @@ spec:
            namespace: "{{request.object.spec.fleetWorkspaceName }}"
         patchStrategicMerge:
           status:
+            time: "{{ time_now_utc() }}"
             conditions: '{{ request.object.status.conditions }}'

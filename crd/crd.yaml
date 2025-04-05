@@ -23,6 +23,9 @@ spec:
               type: object
             status:
               properties:
+                time:
+                  nullable: true
+                  type: string
                 conditions:
                   type: array
                   items:
