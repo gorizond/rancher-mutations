@@ -1,12 +1,6 @@
 defaultNamespace: default
 
-kustomize:
-  dir: ./kustomize
-
 dependsOn:
   - selector:
       matchLabels:
         kyverno: operator
-  - selector:
-      matchLabels:
-        kcl: operator

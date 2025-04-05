@@ -1,4 +1,0 @@
-configMapGenerator:
-- name: kcl-scripts
-  files:
-  - generate-fleetworkspace.k
