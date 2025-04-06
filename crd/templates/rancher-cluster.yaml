@@ -26,8 +26,17 @@ spec:
     - generate:
         apiVersion: batch/v1
         data:
+          metadata:
+            labels:
+              job: "cluster-status-{{`{{ request.object.metadata.name }}`}}"
           spec:
+            selector:
+              matchLabels:
+                job: "cluster-status-{{`{{ request.object.metadata.name }}`}}"
             template:
+              metadata:
+                labels:
+                  job: "cluster-status-{{`{{ request.object.metadata.name }}`}}"
               spec:
                 containers:
                   - args:
