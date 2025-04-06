@@ -115,6 +115,12 @@ helm:
               verbs:
                 - "*"
             - apiGroups:
+                - helm.cattle.io
+              resources:
+                - helmcharts
+              verbs:
+                - "*"
+            - apiGroups:
                 - provisioning.cattle.io
                 - management.cattle.io
               resources:
