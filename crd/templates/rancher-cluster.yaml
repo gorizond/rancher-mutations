@@ -33,8 +33,7 @@ spec:
                   - args:
                       - >-
                         kubectl patch -n "{{`{{request.object.spec.fleetWorkspaceName }}`}}" \
-                        cluster.provisioning.gorizond.io \
-                        "{{`{{ request.object.spec.displayName }}`}}" \
+                        cluster.provisioning.gorizond.io "{{`{{ request.object.spec.displayName }}`}}" \
                           --type=merge \
                           --subresource status \
                           -p '{"status": {"time": "{{`{{ time_now_utc() }}`}}"}}'
