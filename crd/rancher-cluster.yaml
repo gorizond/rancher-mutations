@@ -44,5 +44,8 @@ spec:
            namespace: "{{request.object.spec.fleetWorkspaceName }}"
         patchStrategicMerge:
           status:
-            time: "{{ time_now_utc() }}"
             conditions: '{{ request.object.status.conditions }}'
+        patchesJson6902: |-
+          - op: replace
+            path: /status/time
+            value: "{{ time_now_utc() }}"
