@@ -42,9 +42,6 @@ spec:
            kind: Cluster
            name: "{{request.object.spec.displayName }}"
            namespace: "{{request.object.spec.fleetWorkspaceName }}"
-        patchStrategicMerge:
-          status:
-            conditions: '{{ request.object.status.conditions }}'
         patchesJson6902: |-
           - op: replace
             path: /status/time
