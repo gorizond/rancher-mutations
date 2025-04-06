@@ -42,7 +42,10 @@ spec:
            kind: Cluster
            name: "{{request.object.spec.displayName }}"
            namespace: "{{request.object.spec.fleetWorkspaceName }}"
-        patchesJson6902: |-
+        patchesJson6902:
+          - op: add
+            path: /status
+            value: {}
           - op: add
             path: /status/time
             value: "{{ time_now_utc() }}"
