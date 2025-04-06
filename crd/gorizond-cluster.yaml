@@ -23,6 +23,29 @@ spec:
                 - provisioning.gorizond.io/v1alpha1/Cluster
               operations:
                 - CREATE
+    - generate:
+        apiVersion: helm.cattle.io/v1
+        data:
+          spec:
+            chart: k3s-server
+            repo: https://gorizond.github.io/k3s-server
+            targetNamespace: "{{request.object.metadata.namespace}}"
+            set:
+              domain: "{{request.object.metadata.name}}.{{request.object.metadata.namespace}}.localdev.me"
+          metadata:
+            annotations:
+              gorizond-user-creator: "{{ request.userInfo.username }}"
+        kind: HelmChart
+        name: "{{request.object.metadata.name}}"
+        namespace: "{{request.object.metadata.namespace}}"
+      name: create-api-cluster
+      match:
+        any:
+          - resources:
+              kinds:
+                - provisioning.gorizond.io/v1alpha1/Cluster
+              operations:
+                - CREATE
     - mutate:
         targets:
          - apiVersion: provisioning.cattle.io/v1
