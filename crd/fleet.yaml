@@ -4,3 +4,8 @@ dependsOn:
   - selector:
       matchLabels:
         kyverno: operator
+
+helm:
+  chart: ./
+  values:
+    domain: ${ if hasKey .ClusterAnnotations "gorizond.domain" }${ get .ClusterAnnotations "gorizond.domain" }${ else }gorizond.cluster${ end }

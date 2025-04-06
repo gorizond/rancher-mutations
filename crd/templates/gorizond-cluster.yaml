@@ -31,7 +31,7 @@ spec:
             repo: https://gorizond.github.io/k3s-server
             targetNamespace: "{{request.object.metadata.namespace}}"
             set:
-              domain: "{{request.object.metadata.name}}.{{request.object.metadata.namespace}}.localdev.me"
+              domain: "{{request.object.metadata.name}}.{{request.object.metadata.namespace}}.{{ $.Values.domain }}"
           metadata:
             annotations:
               gorizond-user-creator: "{{ request.userInfo.username }}"
