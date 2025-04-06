@@ -32,11 +32,7 @@ spec:
                 containers:
                   - args:
                       - >-
-                        kubectl patch -n "{{`{{request.object.spec.fleetWorkspaceName }}`}}" \
-                        cluster.provisioning.gorizond.io "{{`{{ request.object.spec.displayName }}`}}" \
-                          --type=merge \
-                          --subresource status \
-                          -p '{"status": {"time": "{{`{{ time_now_utc() }}`}}"}}'
+                        kubectl patch -n "{{`{{ request.object.spec.fleetWorkspaceName }}`}}" cluster.provisioning.gorizond.io "{{`{{ request.object.spec.displayName }}`}}" --type=merge --subresource status -p '{"status": {"time": "{{`{{ time_now_utc() }}`}}"}}'
                     command:
                       - /bin/sh
                       - '-c'
@@ -47,7 +43,7 @@ spec:
                 serviceAccountName: kyverno-background-controller
             ttlSecondsAfterFinished: 0
         kind: Job
-        name: cluster-status-{{`{{ request.object.metadata.name }}`}}
+        name: "cluster-status-{{`{{ request.object.metadata.name }}`}}"
         namespace: kyverno
         synchronize: true
       match:
