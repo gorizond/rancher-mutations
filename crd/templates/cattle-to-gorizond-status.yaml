@@ -15,7 +15,7 @@ spec:
                 containers:
                   - args:
                       - >-
-                        kubectl patch -n "{{`{{ request.object.spec.fleetWorkspaceName }}`}}" cluster.provisioning.gorizond.io "{{`{{ request.object.spec.displayName }}`}}" --type=merge --subresource status -p '{"status": {"time": "{{`{{ time_now_utc() }}`}}"}}'
+                        kubectl patch -n "{{`{{ request.object.spec.fleetWorkspaceName }}`}}" cluster.provisioning.gorizond.io "{{`{{ request.object.spec.displayName }}`}}" --type=merge --subresource status -p '{"status": {"conditions": "{{`{{ request.object.status.conditions }}`}}"}}'
                     command:
                       - /bin/sh
                       - '-c'
