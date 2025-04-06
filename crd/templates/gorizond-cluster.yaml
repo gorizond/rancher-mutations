@@ -11,10 +11,10 @@ spec:
         data:
           metadata:
             annotations:
-              gorizond-user-creator: "\{{ request.userInfo.username }}"
+              gorizond-user-creator: '{{`{{ request.userInfo.username }}`}}'
         kind: Cluster
-        name: "\{{request.object.metadata.name}}"
-        namespace: "\{{request.object.metadata.namespace}}"
+        name: '{{`{{ request.object.metadata.name }}`}}'
+        namespace: '{{`{{ request.object.metadata.namespace }}`}}'
       name: create-cluster
       match:
         any:
@@ -29,15 +29,15 @@ spec:
           spec:
             chart: k3s-server
             repo: https://gorizond.github.io/k3s-server
-            targetNamespace: "\{{request.object.metadata.namespace}}"
+            targetNamespace: '{{`{{ request.object.metadata.namespace }}`}}'
             set:
-              domain: "\{{request.object.metadata.name}}.\{{request.object.metadata.namespace}}.{{ $.Values.domain }}"
+              domain: '{{`{{ request.object.metadata.name }}`}}.{{`{{ request.object.metadata.namespace }}`}}.{{ $.Values.domain }}'
           metadata:
             annotations:
-              gorizond-user-creator: "\{{ request.userInfo.username }}"
+              gorizond-user-creator: '{{`{{ request.userInfo.username }}`}}'
         kind: HelmChart
-        name: "\{{request.object.metadata.name}}"
-        namespace: "\{{request.object.metadata.namespace}}"
+        name: '{{`{{ request.object.metadata.name }}`}}'
+        namespace: '{{`{{ request.object.metadata.namespace }}`}}'
       name: create-api-cluster
       match:
         any:
@@ -50,12 +50,12 @@ spec:
         targets:
          - apiVersion: provisioning.cattle.io/v1
            kind: Cluster
-           name: "\{{request.object.metadata.name}}"
-           namespace: "\{{request.object.metadata.namespace}}"
+           name: '{{`{{ request.object.metadata.name }}`}}'
+           namespace: '{{`{{ request.object.metadata.namespace }}`}}'
          - apiVersion: helm.cattle.io/v1
            kind: HelmChart
-           name: "\{{request.object.metadata.name}}"
-           namespace: "\{{request.object.metadata.namespace}}"
+           name: '{{`{{ request.object.metadata.name }}`}}'
+           namespace: '{{`{{ request.object.metadata.namespace }}`}}'
         patchStrategicMerge:
           metadata:
             labels:
