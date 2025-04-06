@@ -11,7 +11,7 @@ spec:
         data:
           clusterName: '{{`{{ request.object.metadata.name }}`}}'
           roleTemplateName: cluster-owner
-          userName: '{{`{{ request.object.metadata.annotations.gorizond-user-creator }}`}}'
+          userName: '{{`{{ request.object.metadata.annotations."gorizond-user-creator" }}`}}'
         kind: ClusterRoleTemplateBinding
         namespace: '{{`{{ request.object.metadata.name }}`}}'
         name: 'crb-admin-{{`{{ request.object.metadata.uid }}`}}'
