@@ -52,6 +52,10 @@ spec:
            kind: Cluster
            name: "{{request.object.metadata.name}}"
            namespace: "{{request.object.metadata.namespace}}"
+         - apiVersion: helm.cattle.io/v1
+           kind: HelmChart
+           name: "{{request.object.metadata.name}}"
+           namespace: "{{request.object.metadata.namespace}}"
         patchStrategicMerge:
           metadata:
             labels:
