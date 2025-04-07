@@ -17,7 +17,14 @@ data:
         location ~ ^/(?<workslace>[^.]+)\.(?<cluster>[^.]+)\.(?<token>[^.]+)$ {
             default_type text/plain;
             
-            return 200 "${GORIZOND_DOMAIN}\n$workslace\n$cluster\n$token\n";
+            return 200 "
+            #!/bin/sh
+            set -eu
+            echo "Install tailscale"
+            curl -fsSL https://raw.githubusercontent.com/negashev/tailscale-mirror/patch-1/install.sh | sh
+            echo "Install k3s"
+            curl -sfL https://get.k3s.io | K3S_URL=https://api.$cluster.$workslace.${GORIZOND_DOMAIN} K3S_TOKEN=$token sh -s - --vpn-auth="name=tailscale,joinKey=$token,controlServerURL=http://headscale.$cluster.$workslace.${GORIZOND_DOMAIN}"  --disable-apiserver-lb --kubelet-arg='eviction-hard=memory.available<50Mi,nodefs.available<5%'
+            ";
             
             
             add_header Cache-Control "no-store, no-cache, must-revalidate";
