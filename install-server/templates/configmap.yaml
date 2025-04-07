@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "gorizond-install-server.fullname" . }}
+  labels:
+    {{- include "gorizond-install-server.labels" . | nindent 4 }}
+data:
+  default.conf.template: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location ~ ^/(?<workslace>[^.]+)\.(?<cluster>[^.]+)\.(?<token>[^.]+)$ {
+            default_type text/plain;
+            
+            return 200 "${GORIZOND_DOMAIN}\n$workslace\n$cluster\n$token\n";
+            
+            
+            add_header Cache-Control "no-store, no-cache, must-revalidate";
+            add_header Pragma "no-cache";
+        }
+
+    }
