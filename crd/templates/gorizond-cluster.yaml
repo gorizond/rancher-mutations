@@ -32,6 +32,7 @@ spec:
             targetNamespace: '{{`{{ request.object.metadata.namespace }}`}}'
             set:
               domain: '{{`{{ request.object.metadata.name }}`}}.{{`{{ request.object.metadata.namespace }}`}}.{{ $.Values.domain }}'
+              postgres.k3s.hostname: '{{ $.Values.postgres.k3s.hostname }}'
           metadata:
             annotations:
               gorizond-user-creator: '{{`{{ request.userInfo.username }}`}}'

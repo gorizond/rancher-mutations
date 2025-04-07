@@ -9,3 +9,6 @@ helm:
   chart: ./
   values:
     domain: ${ if hasKey .ClusterAnnotations "gorizond.domain" }${ get .ClusterAnnotations "gorizond.domain" }${ else }gorizond.cluster${ end }
+    postgres:
+      k3s:
+        hostname: ${ if hasKey .ClusterAnnotations "gorizond.postgres.k3s.hostname" }${ get .ClusterAnnotations "gorizond.postgres.k3s.hostname" }${ else }postgres${ end }

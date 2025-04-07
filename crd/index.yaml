@@ -1,1 +1,4 @@
 domain: gorizond.cluster
+postgres:
+  k3s:
+    hostname: postgres
