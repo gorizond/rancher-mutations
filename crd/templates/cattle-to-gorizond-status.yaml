@@ -20,6 +20,7 @@ spec:
                       - /bin/sh
                       - '-c'
                     image: bitnami/kubectl:latest
+                    imagePullPolicy: IfNotPresent
                     name: kubectl
                 restartPolicy: Never
                 serviceAccount: kyverno-background-controller
