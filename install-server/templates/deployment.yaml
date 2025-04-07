@@ -40,6 +40,9 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: GORIZOND_DOMAIN
+              value: {{ (index .Values.ingress.hosts 0).host }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -59,7 +62,6 @@ spec:
           volumeMounts:
             - name: nginx-config-volume
               mountPath: /etc/nginx/templates
-              subPath: default.conf.template
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
