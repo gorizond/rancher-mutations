@@ -9,7 +9,11 @@ data:
     server {
         listen 80;
         server_name localhost;
-
+        
+        location / {
+            return 200 'OK';
+        }
+        
         location ~ ^/(?<workslace>[^.]+)\.(?<cluster>[^.]+)\.(?<token>[^.]+)$ {
             default_type text/plain;
             
