@@ -61,7 +61,7 @@ spec:
                 restartPolicy: Never
                 serviceAccount: kyverno-background-controller
                 serviceAccountName: kyverno-background-controller
-            # ttlSecondsAfterFinished: 0
+            ttlSecondsAfterFinished: 0
         kind: Job
         name: cluster-status-{{`{{ request.object.metadata.name }}`}}-k3s-token
         namespace: kyverno
