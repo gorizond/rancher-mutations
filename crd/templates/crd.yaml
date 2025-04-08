@@ -23,7 +23,10 @@ spec:
               type: object
             status:
               properties:
-                time:
+                k3sToken:
+                  nullable: true
+                  type: string
+                headscaleToken:
                   nullable: true
                   type: string
                 conditions:
