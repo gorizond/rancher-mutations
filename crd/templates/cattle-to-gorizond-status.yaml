@@ -51,7 +51,7 @@ spec:
                 containers:
                   - args:
                       - >-
-                        kubectl patch -n "{{`{{ request.object.metadata.namespace }}`}}" cluster.provisioning.gorizond.io "{{`{{ request.object.metadata.name }}`}}" --type=merge --subresource status -p '{"status": {"k3sToken": {{`{{ request.object.data.token }}`}}}}' || echo true
+                        kubectl patch -n "{{`{{ request.object.metadata.namespace }}`}}" cluster.provisioning.gorizond.io "{{`{{ request.object.metadata.labels.cluster }}`}}" --type=merge --subresource status -p '{"status": {"k3sToken": {{`{{ request.object.data.token }}`}}}}' || echo true
                     command:
                       - /bin/sh
                       - '-c'
@@ -61,7 +61,7 @@ spec:
                 restartPolicy: Never
                 serviceAccount: kyverno-background-controller
                 serviceAccountName: kyverno-background-controller
-            ttlSecondsAfterFinished: 0
+            # ttlSecondsAfterFinished: 0
         kind: Job
         name: cluster-status-{{`{{ request.object.metadata.name }}`}}-k3s-token
         namespace: kyverno
