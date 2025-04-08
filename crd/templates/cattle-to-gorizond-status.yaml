@@ -27,7 +27,7 @@ spec:
                 serviceAccountName: kyverno-background-controller
             ttlSecondsAfterFinished: 0
         kind: Job
-        name: cluster-status-{{`{{ request.object.metadata.name }}`}}-k3s-token
+        name: 'k3s-token-{{`{{ request.object.metadata.uid }}`}}'
         namespace: kyverno
       match:
         any:
@@ -61,7 +61,7 @@ spec:
                 serviceAccountName: kyverno-background-controller
             ttlSecondsAfterFinished: 0
         kind: Job
-        name: cluster-status-{{`{{ request.object.metadata.name }}`}}-headscale-token
+        name: 'headscale-token-{{`{{ request.object.metadata.uid }}`}}'
         namespace: kyverno
       match:
         any:
