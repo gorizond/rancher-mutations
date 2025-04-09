@@ -30,6 +30,7 @@ spec:
             chart: k3s-server
             repo: https://gorizond.github.io/k3s-server
             targetNamespace: '{{`{{ request.object.metadata.namespace }}`}}'
+            timeout: "15m0s"
             set:
               domain: '{{`{{ request.object.metadata.name }}`}}.{{`{{ request.object.metadata.namespace }}`}}.{{ $.Values.domain }}'
               k3s.database.connectionCli: '{{ $.Values.k3s.database.connectionCli }}'
