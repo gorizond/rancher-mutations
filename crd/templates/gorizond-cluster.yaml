@@ -33,7 +33,7 @@ spec:
             set:
               domain: '{{`{{ request.object.metadata.name }}`}}.{{`{{ request.object.metadata.namespace }}`}}.{{ $.Values.domain }}'
               postgres.k3s.hostname: '{{ $.Values.postgres.k3s.hostname }}'
-              postgres.k3s.port: '{{ $.Values.postgres.k3s.hostname }}'
+              postgres.k3s.port: '{{ $.Values.postgres.k3s.port }}'
               postgres.hs.hostname: '{{ $.Values.postgres.hs.hostname }}'
               postgres.hs.port: '{{ $.Values.postgres.hs.port }}'
           metadata:
