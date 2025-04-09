@@ -12,6 +12,7 @@ helm:
     k3s:
       database:
         type: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.type" }${ get .ClusterAnnotations "gorizond.k3s.database.type" }${ else }postgres${ end }
+        image: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.image" }${ get .ClusterAnnotations "gorizond.k3s.database.image" }${ else }postgres:alpine${ end }
         username: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.username" }${ get .ClusterAnnotations "gorizond.k3s.database.username" }${ else }postgres${ end }
         hostname: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.hostname" }${ get .ClusterAnnotations "gorizond.k3s.database.hostname" }${ else }postgres${ end }
         port: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.port" }${ get .ClusterAnnotations "gorizond.k3s.database.port" }${ else }5432${ end }
