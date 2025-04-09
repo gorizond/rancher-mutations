@@ -2,3 +2,7 @@ domain: gorizond.cluster
 postgres:
   k3s:
     hostname: postgres
+    port: 5432
+  hs:
+    hostname: postgres
+    port: 5432
