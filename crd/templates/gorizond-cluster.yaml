@@ -37,6 +37,7 @@ spec:
               k3s.database.hostname: '{{ $.Values.k3s.database.hostname }}'
               k3s.database.username: '{{ $.Values.k3s.database.username }}'
               k3s.database.port: '{{ $.Values.k3s.database.port }}'
+              k3s.database.type: '{{ $.Values.k3s.database.type }}'
               hs.database.hostname: '{{ $.Values.hs.database.hostname }}'
               hs.database.port: '{{ $.Values.hs.database.port }}'
           metadata:

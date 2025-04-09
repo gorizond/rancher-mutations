@@ -16,6 +16,7 @@ helm:
         username: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.username" }${ get .ClusterAnnotations "gorizond.k3s.database.username" }${ else }postgres${ end }
         hostname: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.hostname" }${ get .ClusterAnnotations "gorizond.k3s.database.hostname" }${ else }postgres${ end }
         port: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.port" }${ get .ClusterAnnotations "gorizond.k3s.database.port" }${ else }5432${ end }
+        type: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.type" }${ get .ClusterAnnotations "gorizond.k3s.database.type" }${ else }postgres${ end }
     hs:
       database:
         type: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.type" }${ get .ClusterAnnotations "gorizond.hs.database.type" }${ else }postgres${ end }
