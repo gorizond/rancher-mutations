@@ -32,10 +32,12 @@ spec:
             targetNamespace: '{{`{{ request.object.metadata.namespace }}`}}'
             set:
               domain: '{{`{{ request.object.metadata.name }}`}}.{{`{{ request.object.metadata.namespace }}`}}.{{ $.Values.domain }}'
-              postgres.k3s.hostname: '{{ $.Values.postgres.k3s.hostname }}'
-              postgres.k3s.port: '{{ $.Values.postgres.k3s.port }}'
-              postgres.hs.hostname: '{{ $.Values.postgres.hs.hostname }}'
-              postgres.hs.port: '{{ $.Values.postgres.hs.port }}'
+              k3s.database.type: '{{ $.Values.k3s.database.type }}'
+              k3s.database.hostname: '{{ $.Values.k3s.database.hostname }}'
+              k3s.database.port: '{{ $.Values.k3s.database.port }}'
+              hs.database.type: '{{ $.Values.hs.database.type }}'
+              hs.database.hostname: '{{ $.Values.hs.database.hostname }}'
+              hs.database.port: '{{ $.Values.hs.database.port }}'
           metadata:
             annotations:
               gorizond-user-creator: '{{`{{ request.userInfo.username }}`}}'

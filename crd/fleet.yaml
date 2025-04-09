@@ -9,10 +9,13 @@ helm:
   chart: ./
   values:
     domain: ${ if hasKey .ClusterAnnotations "gorizond.domain" }${ get .ClusterAnnotations "gorizond.domain" }${ else }gorizond.cluster${ end }
-    postgres:
-      k3s:
-        hostname: ${ if hasKey .ClusterAnnotations "gorizond.postgres.k3s.hostname" }${ get .ClusterAnnotations "gorizond.postgres.k3s.hostname" }${ else }postgres${ end }
-        port: ${ if hasKey .ClusterAnnotations "gorizond.postgres.k3s.port" }${ get .ClusterAnnotations "gorizond.postgres.k3s.port" }${ else }5432${ end }
-      hs:
-        hostname: ${ if hasKey .ClusterAnnotations "gorizond.postgres.hs.hostname" }${ get .ClusterAnnotations "gorizond.postgres.hs.hostname" }${ else }postgres${ end }
-        port: ${ if hasKey .ClusterAnnotations "gorizond.postgres.hs.port" }${ get .ClusterAnnotations "gorizond.postgres.hs.port" }${ else }5432${ end }
+    k3s:
+      database:
+        type: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.type" }${ get .ClusterAnnotations "gorizond.k3s.database.type" }${ else }postgres${ end }
+        hostname: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.hostname" }${ get .ClusterAnnotations "gorizond.k3s.database.hostname" }${ else }postgres${ end }
+        port: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.port" }${ get .ClusterAnnotations "gorizond.k3s.database.port" }${ else }5432${ end }
+    hs:
+      database:
+        type: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.type" }${ get .ClusterAnnotations "gorizond.hs.database.type" }${ else }postgres${ end }
+        hostname: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.hostname" }${ get .ClusterAnnotations "gorizond.hs.database.hostname" }${ else }postgres${ end }
+        port: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.port" }${ get .ClusterAnnotations "gorizond.hs.database.port" }${ else }5432${ end }
