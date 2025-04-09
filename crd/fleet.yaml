@@ -15,6 +15,8 @@ helm:
         image: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.image" }${ get .ClusterAnnotations "gorizond.k3s.database.image" }${ else }postgres:alpine${ end }
         username: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.username" }${ get .ClusterAnnotations "gorizond.k3s.database.username" }${ else }postgres${ end }
         hostname: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.hostname" }${ get .ClusterAnnotations "gorizond.k3s.database.hostname" }${ else }postgres${ end }
+        password: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.password" }${ get .ClusterAnnotations "gorizond.k3s.database.password" }${ else }passw0rd${ end }
+        query: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.query" }${ get .ClusterAnnotations "gorizond.k3s.database.query" }${ else }sslmode=disable${ end }
         port: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.port" }${ get .ClusterAnnotations "gorizond.k3s.database.port" }${ else }5432${ end }
         type: ${ if hasKey .ClusterAnnotations "gorizond.k3s.database.type" }${ get .ClusterAnnotations "gorizond.k3s.database.type" }${ else }postgres${ end }
     hs:
