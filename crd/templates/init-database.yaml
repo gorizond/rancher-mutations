@@ -28,5 +28,5 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              {{ .Values.hs.database.connectionCli }} "CREATE DATABASE gorizond_truncate;"
-              {{ .Values.hs.database.connectionCli }} "CREATE TABLE table_to_delete (id TEXT PRIMARY KEY);" -d gorizond_truncate
+              psql "postgres://$HS_DB_USERNAME:$HS_DB_PASSWORD@$HS_DB_HOSTNAME:$HS_DB_PORT?$HS_DB_QUERY" -c "CREATE DATABASE gorizond_truncate;"
+              psql "postgres://$HS_DB_USERNAME:$HS_DB_PASSWORD@$HS_DB_HOSTNAME:$HS_DB_PORT/gorizond_truncate?$HS_DB_QUERY" -c "CREATE TABLE table_to_delete (id TEXT PRIMARY KEY);"
