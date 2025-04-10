@@ -32,7 +32,6 @@ spec:
         - apiCall:
             urlPath: '/apis/management.cattle.io/v3/namespaces/{{`{{ request.object.metadata.name }}`}}/clusterregistrationtokens/default-token'
             jmesPath: status.command
-            method: GET
           name: command
       generate:
         apiVersion: helm.cattle.io/v1
