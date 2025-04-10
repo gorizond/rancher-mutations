@@ -28,7 +28,7 @@ spec:
               command: ["sh", "-c"]
               args:
                 - |
-                  for table_to_delete in $(psql "postgres://$HS_DB_USERNAME:$HS_DB_PASSWORD@$HS_DB_HOSTNAME:$HS_DB_PORT/gorizond_truncate?$HS_DB_QUERY" -c "SELECT id FROM table_to_delete;"); do
+                  for table_to_delete in $(psql "postgres://$HS_DB_USERNAME:$HS_DB_PASSWORD@$HS_DB_HOSTNAME:$HS_DB_PORT/gorizond_truncate?$HS_DB_QUERY" -t -c "SELECT id FROM table_to_delete;"); do
                     echo "Dropping database: $table_to_delete"
                     psql "postgres://$HS_DB_USERNAME:$HS_DB_PASSWORD@$HS_DB_HOSTNAME:$HS_DB_PORT/gorizond_truncate?$HS_DB_QUERY" -c "DROP DATABASE IF EXISTS $table_to_delete;"
                     if [ $? -eq 0 ]; then
