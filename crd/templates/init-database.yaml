@@ -9,6 +9,7 @@ spec:
   ttlSecondsAfterFinished: 10
   template:
     spec:
+      restartPolicy: OnFailure
       containers:
         - name: create-truncate-database
           image: {{ $.Values.hs.database.image }}
