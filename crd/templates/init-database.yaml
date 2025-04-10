@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gorizond-create-db
+  annotations:
+    "helm.sh/hook": "post-install"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      containers:
+        - name: create-database-hs
+          image: {{ $.Values.hs.database.image }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HS_DB_USERNAME
+              value: "{{ .Values.hs.database.username }}"
+            - name: HS_DB_PASSWORD
+              value: "{{ .Values.hs.database.password }}"
+            - name: HS_DB_HOSTNAME
+              value: "{{ .Values.hs.database.hostname }}"
+            - name: HS_DB_PORT
+              value: "{{ .Values.hs.database.port }}"
+            - name: HS_DB_QUERY
+              value: "{{ .Values.hs.database.query }}"
+          command: ["sh", "-c"]
+          args:
+            - |
+              {{ .Values.hs.database.connectionCli }} "CREATE DATABASE gorizond_truncate;"
+              {{ .Values.hs.database.connectionCli }} "CREATE TABLE gorizond_truncate.table_to_delete (id TEXT PRIMARY KEY);"
+        - name: create-database-k3s
+          image: {{ $.Values.k3s.database.image }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: K3S_DB_USERNAME
+              value: "{{ .Values.k3s.database.username }}"
+            - name: K3S_DB_PASSWORD
+              value: "{{ .Values.k3s.database.password }}"
+            - name: K3S_DB_HOSTNAME
+              value: "{{ .Values.k3s.database.hostname }}"
+            - name: K3S_DB_PORT
+              value: "{{ .Values.k3s.database.port }}"
+            - name: K3S_DB_QUERY
+              value: "{{ .Values.k3s.database.query }}"
+          command: ["sh", "-c"]
+          args:
+            - |
+              {{ .Values.k3s.database.connectionCli }} "CREATE DATABASE gorizond_truncate;"
+              {{ .Values.k3s.database.connectionCli }} "CREATE TABLE gorizond_truncate.table_to_delete (id TEXT PRIMARY KEY);"
+      restartPolicy: OnFailure

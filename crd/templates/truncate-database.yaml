@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cleanup-database-table
+  namespace: default
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 10  # This sets the TTL for the job after completion
+      template:
+        spec:
+          containers:
+            - name: cleanup-database-hs
+              image: {{ $.Values.hs.database.image }}
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: HS_DB_USERNAME
+                  value: "{{ .Values.hs.database.username }}"
+                - name: HS_DB_PASSWORD
+                  value: "{{ .Values.hs.database.password }}"
+                - name: HS_DB_HOSTNAME
+                  value: "{{ .Values.hs.database.hostname }}"
+                - name: HS_DB_PORT
+                  value: "{{ .Values.hs.database.port }}"
+                - name: HS_DB_QUERY
+                  value: "{{ .Values.hs.database.query }}"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  for table_to_delete in $({{ .Values.hs.database.connectionCli }} "SELECT id FROM gorizond_truncate.table_to_delete;"); do
+                    echo "Dropping database: $table_to_delete"
+                    {{ .Values.k3s.database.connectionCli }} "DROP DATABASE IF EXISTS $table_to_delete;"
+                    if [ $? -eq 0 ]; then
+                      echo "Successfully dropped database: $table_to_delete"
+                      {{ .Values.k3s.database.connectionCli }} "DELETE FROM gorizond_truncate.table_to_delete WHERE id = '$table_to_delete';"
+                    else
+                      echo "Failed to drop database: $table_to_delete. "
+                    fi
+                  done
+            - name: cleanup-database-k3s
+              image: {{ $.Values.k3s.database.image }}
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: K3S_DB_USERNAME
+                  value: "{{ .Values.k3s.database.username }}"
+                - name: K3S_DB_PASSWORD
+                  value: "{{ .Values.k3s.database.password }}"
+                - name: K3S_DB_HOSTNAME
+                  value: "{{ .Values.k3s.database.hostname }}"
+                - name: K3S_DB_PORT
+                  value: "{{ .Values.k3s.database.port }}"
+                - name: K3S_DB_QUERY
+                  value: "{{ .Values.k3s.database.query }}"
+              command: ["sh", "-c"]
+              args:
+                - |
+                  for table_to_delete in $({{ .Values.k3s.database.connectionCli }} "SELECT id FROM gorizond_truncate.table_to_delete;"); do
+                    echo "Dropping database: $table_to_delete"
+                    {{ .Values.k3s.database.connectionCli }} "DROP DATABASE IF EXISTS $table_to_delete;"
+                    if [ $? -eq 0 ]; then
+                      echo "Successfully dropped database: $table_to_delete"
+                      {{ .Values.k3s.database.connectionCli }} "DELETE FROM gorizond_truncate.table_to_delete WHERE id = '$table_to_delete';"
+                    else
+                      echo "Failed to drop database: $table_to_delete. "
+                    fi
+                  done
+          restartPolicy: OnFailure
