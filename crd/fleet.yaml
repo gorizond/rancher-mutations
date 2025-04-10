@@ -22,7 +22,10 @@ helm:
     hs:
       database:
         connectionCli: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.connectionCli" }${ get .ClusterAnnotations "gorizond.hs.database.connectionCli" }${ else }psql "postgres://$HS_DB_USERNAME:$HS_DB_PASSWORD@$HS_DB_HOSTNAME:$HS_DB_PORT?$HS_DB_QUERY" -c${ end }
-        type: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.type" }${ get .ClusterAnnotations "gorizond.hs.database.type" }${ else }postgres${ end }
         image: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.image" }${ get .ClusterAnnotations "gorizond.hs.database.image" }${ else }postgres:alpine${ end }
+        username: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.username" }${ get .ClusterAnnotations "gorizond.hs.database.username" }${ else }postgres${ end }
         hostname: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.hostname" }${ get .ClusterAnnotations "gorizond.hs.database.hostname" }${ else }postgres${ end }
+        password: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.password" }${ get .ClusterAnnotations "gorizond.hs.database.password" }${ else }passw0rd${ end }
+        query: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.query" }${ get .ClusterAnnotations "gorizond.hs.database.query" }${ else }sslmode=disable${ end }
         port: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.port" }${ get .ClusterAnnotations "gorizond.hs.database.port" }${ else }5432${ end }
+        type: ${ if hasKey .ClusterAnnotations "gorizond.hs.database.type" }${ get .ClusterAnnotations "gorizond.hs.database.type" }${ else }postgres${ end }
