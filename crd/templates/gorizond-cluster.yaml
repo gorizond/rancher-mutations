@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
-  name: cluster-operate
+  name: gorizond-cluster-operate
 spec:
   admission: true
   background: false
