@@ -1,7 +1,7 @@
 apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
-  name: gorizond-cluster-operate
+  name: rancher-cluster-operate
 spec:
   admission: true
   background: true
