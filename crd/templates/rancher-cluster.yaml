@@ -23,3 +23,47 @@ spec:
                 - management.cattle.io/v3/Cluster
               operations:
                 - CREATE
+      preconditions:
+        all:
+          - key: '{{`{{ request.object.spec.fleetWorkspaceName }}`}}'
+            operator: AnyNotIn
+            value: ["fleet-local", "fleet-default"]
+    - generate:
+        apiVersion: helm.cattle.io/v1
+        data:
+          spec:
+            chart: k3s-server
+            repo: https://gorizond.github.io/k3s-server
+            targetNamespace: '{{`{{ request.object.spec.fleetWorkspaceName }}`}}'
+            timeout: "15m0s"
+            set:
+              domain: '{{`{{ request.object.spec.displayName }}`}}.{{`{{ request.object.spec.fleetWorkspaceName }}`}}.{{ $.Values.domain }}'
+              k3s.database.connectionCli: '{{ $.Values.k3s.database.connectionCli }}'
+              k3s.database.image: '{{ $.Values.k3s.database.image }}'
+              k3s.database.hostname: '{{ $.Values.k3s.database.hostname }}'
+              k3s.database.username: '{{ $.Values.k3s.database.username }}'
+              k3s.database.port: '{{ $.Values.k3s.database.port }}'
+              k3s.database.type: '{{ $.Values.k3s.database.type }}'
+              k3s.database.password: '{{ $.Values.k3s.database.password }}'
+              k3s.database.query: '{{ $.Values.k3s.database.query }}'
+              hs.database.hostname: '{{ $.Values.hs.database.hostname }}'
+              hs.database.port: '{{ $.Values.hs.database.port }}'
+          metadata:
+            annotations:
+              gorizond-user-creator: '{{`{{ request.object.metadata.annotations."gorizond-user-creator" }}`}}'
+        kind: HelmChart
+        name: '{{`{{ request.object.spec.displayName }}`}}'
+        namespace: '{{`{{ request.object.spec.fleetWorkspaceName }}`}}'
+      name: create-api-cluster
+      match:
+        any:
+          - resources:
+              kinds:
+                - management.cattle.io/v3/Cluster
+              operations:
+                - CREATE
+      preconditions:
+        all:
+          - key: '{{`{{ request.object.spec.fleetWorkspaceName }}`}}'
+            operator: AnyNotIn
+            value: ["fleet-local", "fleet-default"]
