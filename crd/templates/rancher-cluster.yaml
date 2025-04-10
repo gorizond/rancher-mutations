@@ -28,7 +28,13 @@ spec:
           - key: '{{`{{ request.object.spec.fleetWorkspaceName }}`}}'
             operator: AnyNotIn
             value: ["fleet-local", "fleet-default"]
-    - generate:
+    - context:
+        - apiCall:
+            urlPath: '/apis/management.cattle.io/v3/namespaces/{{`{{ request.object.metadata.name }}`}}/clusterregistrationtokens/default-token'
+            jmesPath: status.command
+            name: command
+            method: GET
+      generate:
         apiVersion: helm.cattle.io/v1
         data:
           spec:
@@ -49,6 +55,7 @@ spec:
               hs.database.hostname: '{{ $.Values.hs.database.hostname }}'
               hs.database.port: '{{ $.Values.hs.database.port }}'
               clusterId: '{{`{{ request.object.metadata.name }}`}}'
+              rancherAgentCommand: '{{`{{ command }}`}}'
           metadata:
             annotations:
               gorizond-user-creator: '{{`{{ request.object.metadata.annotations."gorizond-user-creator" }}`}}'
