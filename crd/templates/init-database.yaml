@@ -29,4 +29,4 @@ spec:
           args:
             - |
               {{ .Values.hs.database.connectionCli }} "CREATE DATABASE gorizond_truncate;"
-              {{ .Values.hs.database.connectionCli }} "CREATE TABLE gorizond_truncate.table_to_delete (id TEXT PRIMARY KEY);"
+              {{ .Values.hs.database.connectionCli }} "CREATE TABLE table_to_delete (id TEXT PRIMARY KEY);" -d gorizond_truncate
