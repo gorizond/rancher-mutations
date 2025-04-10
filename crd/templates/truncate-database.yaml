@@ -6,10 +6,10 @@ spec:
   schedule: "* * * * *"
   jobTemplate:
     spec:
-      restartPolicy: OnFailure
       ttlSecondsAfterFinished: 10  # This sets the TTL for the job after completion
       template:
         spec:
+          restartPolicy: OnFailure
           containers:
             - name: remove-database
               image: {{ $.Values.hs.database.image }}
